@@ -6,15 +6,31 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives | 夏铭蔚的blog</title>
+  <title>Vue项目开发过程的一些要点总结 | 夏铭蔚的blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="夏铭蔚的blog">
-<meta property="og:url" content="http://yoursite.com/archives/index.html">
+  <meta name="description" content="前言： 以下总结了在实际开发过程中遇到的某些业务场景的坑点及相应的解决办法和Vue一些特性在某些场景的使用，也记录了一些未在项目中用到却值得关注的特性。 1.自定义组件v-model 适用场景： 在业务中，经常会使用模态框组件，在过往的开发中，同一个组件内嵌多个Modal，每个Modal的data以及methods等都融合在一起，这样对于解耦是非常不方便的，完全不利于维护和复用。因此，每一个Mod">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue项目开发过程的一些要点总结">
+<meta property="og:url" content="http://yoursite.com/2020/10/31/Vue%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E8%BF%87%E7%A8%8B%E7%9A%84%E4%B8%80%E4%BA%9B%E8%A6%81%E7%82%B9%E6%80%BB%E7%BB%93/index.html">
 <meta property="og:site_name" content="夏铭蔚的blog">
+<meta property="og:description" content="前言： 以下总结了在实际开发过程中遇到的某些业务场景的坑点及相应的解决办法和Vue一些特性在某些场景的使用，也记录了一些未在项目中用到却值得关注的特性。 1.自定义组件v-model 适用场景： 在业务中，经常会使用模态框组件，在过往的开发中，同一个组件内嵌多个Modal，每个Modal的data以及methods等都融合在一起，这样对于解耦是非常不方便的，完全不利于维护和复用。因此，每一个Mod">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2020/10/31/Vue%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E8%BF%87%E7%A8%8B%E7%9A%84%E4%B8%80%E4%BA%9B%E8%A6%81%E7%82%B9%E6%80%BB%E7%BB%93/sync.gif">
+<meta property="og:image" content="http://yoursite.com/2020/10/31/Vue%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E8%BF%87%E7%A8%8B%E7%9A%84%E4%B8%80%E4%BA%9B%E8%A6%81%E7%82%B9%E6%80%BB%E7%BB%93/iviewForm1.png">
+<meta property="og:image" content="http://yoursite.com/2020/10/31/Vue%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E8%BF%87%E7%A8%8B%E7%9A%84%E4%B8%80%E4%BA%9B%E8%A6%81%E7%82%B9%E6%80%BB%E7%BB%93/iviewForm2.png">
+<meta property="og:image" content="http://yoursite.com/2020/10/31/Vue%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E8%BF%87%E7%A8%8B%E7%9A%84%E4%B8%80%E4%BA%9B%E8%A6%81%E7%82%B9%E6%80%BB%E7%BB%93/%E5%93%8D%E5%BA%94%E5%BC%8F1.png">
+<meta property="og:image" content="http://yoursite.com/2020/10/31/Vue%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E8%BF%87%E7%A8%8B%E7%9A%84%E4%B8%80%E4%BA%9B%E8%A6%81%E7%82%B9%E6%80%BB%E7%BB%93/%E5%93%8D%E5%BA%94%E5%BC%8F2.png">
+<meta property="og:image" content="http://yoursite.com/2020/10/31/Vue%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E8%BF%87%E7%A8%8B%E7%9A%84%E4%B8%80%E4%BA%9B%E8%A6%81%E7%82%B9%E6%80%BB%E7%BB%93/%E6%B7%B1%E6%B5%85%E6%8B%B7%E8%B4%9D.png">
+<meta property="og:image" content="http://yoursite.com/2020/10/31/Vue%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E8%BF%87%E7%A8%8B%E7%9A%84%E4%B8%80%E4%BA%9B%E8%A6%81%E7%82%B9%E6%80%BB%E7%BB%93/iview-select.gif">
+<meta property="og:image" content="http://yoursite.com/2020/10/31/Vue%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E8%BF%87%E7%A8%8B%E7%9A%84%E4%B8%80%E4%BA%9B%E8%A6%81%E7%82%B9%E6%80%BB%E7%BB%93/map.png">
+<meta property="og:image" content="http://yoursite.com/2020/10/31/Vue%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E8%BF%87%E7%A8%8B%E7%9A%84%E4%B8%80%E4%BA%9B%E8%A6%81%E7%82%B9%E6%80%BB%E7%BB%93/%E7%B2%BE%E5%BA%A6%E4%B8%A2%E5%A4%B1.png">
+<meta property="og:image" content="http://yoursite.com/2020/10/31/Vue%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E8%BF%87%E7%A8%8B%E7%9A%84%E4%B8%80%E4%BA%9B%E8%A6%81%E7%82%B9%E6%80%BB%E7%BB%93/function.gif">
+<meta property="article:published_time" content="2020-10-31T08:41:55.000Z">
+<meta property="article:modified_time" content="2020-10-31T09:51:57.566Z">
 <meta property="article:author" content="夏铭蔚">
+<meta property="article:tag" content="Vue.js">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2020/10/31/Vue%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E8%BF%87%E7%A8%8B%E7%9A%84%E4%B8%80%E4%BA%9B%E8%A6%81%E7%82%B9%E6%80%BB%E7%BB%93/sync.gif">
   
     <link rel="alternative" href="/atom.xml" title="夏铭蔚的blog" type="application/atom+xml">
   
@@ -132,36 +148,207 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-Vue项目开发过程的一些要点总结" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      Vue项目开发过程的一些要点总结
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/10/31/Vue%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E8%BF%87%E7%A8%8B%E7%9A%84%E4%B8%80%E4%BA%9B%E8%A6%81%E7%82%B9%E6%80%BB%E7%BB%93/" class="archive-article-date">
+
+        
+        <a href="/2020/10/31/Vue%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E8%BF%87%E7%A8%8B%E7%9A%84%E4%B8%80%E4%BA%9B%E8%A6%81%E7%82%B9%E6%80%BB%E7%BB%93/" class="archive-article-date">
   	<time datetime="2020-10-31T08:41:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-31</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/10/31/Vue%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E8%BF%87%E7%A8%8B%E7%9A%84%E4%B8%80%E4%BA%9B%E8%A6%81%E7%82%B9%E6%80%BB%E7%BB%93/">Vue项目开发过程的一些要点总结</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>前言： 以下总结了在实际开发过程中遇到的某些业务场景的坑点及相应的解决办法和Vue一些特性在某些场景的使用，也记录了一些未在项目中用到却值得关注的特性。</p>
+<p><strong>1.自定义组件v-model</strong></p>
+<p>适用场景：</p>
+<p>在业务中，经常会使用模态框组件，在过往的开发中，同一个组件内嵌多个Modal，每个Modal的data以及methods等都融合在一起，这样对于解耦是非常不方便的，完全不利于维护和复用。因此，每一个Modal框需要单独抽离出去，作为一个独立的组件，有自己独立的data与methods。Modal框是通过v-model控制boolean值来决定显隐，因此在作为二次封装组件被调用时候，需要使用自定义组件v-model去绑定显隐值。</p>
+<a id="more"></a>
 
-        <div class="article-info info-on-right">
-          
+<p>v-model其实是语法糖，等效于</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;custom-input v-bind:value=<span class="string">&quot;searchText&quot;</span> v-on:input=<span class="string">&quot;searchText = $event&quot;</span>&gt;&lt;/custom-input&gt;</span><br></pre></td></tr></table></figure>
+
+<p>因此，在子组件中：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;Modal v-model=<span class="string">&quot;isVisible&quot;</span>&gt;</span><br><span class="line"></span><br><span class="line">    &lt;/Modal&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">    <span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">        name: <span class="string">&#x27;test-dialog&#x27;</span>,</span><br><span class="line">        props: &#123;</span><br><span class="line">            value: &#123;</span><br><span class="line">                type: <span class="built_in">Boolean</span>,</span><br><span class="line">                <span class="keyword">default</span>: <span class="literal">false</span></span><br><span class="line">            &#125;,</span><br><span class="line">        &#125;,</span><br><span class="line">        data() &#123;</span><br><span class="line">            <span class="keyword">return</span> &#123;</span><br><span class="line">                isVisible: <span class="built_in">this</span>.value,</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        methods: &#123;</span><br><span class="line">            </span><br><span class="line">        &#125;,</span><br><span class="line">        watch: &#123;</span><br><span class="line">            value(val) &#123;</span><br><span class="line">                <span class="built_in">this</span>.isVisible = val</span><br><span class="line">            &#125;,</span><br><span class="line">            isVisible(val) &#123;</span><br><span class="line">                <span class="built_in">this</span>.$emit(<span class="string">&#x27;input&#x27;</span>, val)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>父组件中调用：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;test-dialog v-model=<span class="string">&quot;show&quot;</span>&gt;&lt;/test-dialog&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">    <span class="keyword">import</span> testDialog <span class="keyword">from</span> <span class="string">&#x27;./test-dialog&#x27;</span></span><br><span class="line">    <span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">        name: <span class="string">&#x27;test&#x27;</span>,</span><br><span class="line">        components: &#123;</span><br><span class="line">            testDialog</span><br><span class="line">        &#125;,</span><br><span class="line">        data() &#123;</span><br><span class="line">            <span class="keyword">return</span> &#123;</span><br><span class="line">                show: <span class="literal">false</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>2.sync</strong></p>
+<p>自定义组件v-model确实解决了不少问题，但是问题是，v-model在Vue2.0中只支持一个，在Vue3.0可能会推出v-models来解决多个数据双向绑定的问题。那么在2.0中，我们要想实现多个双向绑定属性需要使用.sync。传统的父子组件数据变更交互是，父组件传递一个值，子组件暂存起来，在合适的时机去$emit触发，再在父组件中通过回调事件去监听从而赋值。在使用.sync后，操作简单了不少。</p>
+<p>子组件中：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">        &lt;p&gt;子组件：&lt;/p&gt;</span><br><span class="line">        &lt;button @click=<span class="string">&quot;change&quot;</span>&gt;改变父组件&lt;/button&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">    name: <span class="string">&#x27;Child&#x27;</span>,</span><br><span class="line">    props: &#123;</span><br><span class="line">        field: &#123;</span><br><span class="line">            type: <span class="built_in">String</span>,</span><br><span class="line">            <span class="keyword">default</span>: <span class="string">&#x27;&#x27;</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    methods: &#123;</span><br><span class="line">        change() &#123;</span><br><span class="line">            <span class="built_in">this</span>.$emit(<span class="string">&#x27;update:field&#x27;</span>, <span class="string">&#x27;子组件直接改变父组件值&#x27;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>父组件中：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">        &lt;p&gt;父组件值：&#123;&#123;field&#125;&#125;&lt;/p&gt;</span><br><span class="line">        &lt;child :field.sync=<span class="string">&quot;field&quot;</span>&gt;&lt;/child&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">    <span class="keyword">import</span> child <span class="keyword">from</span> <span class="string">&#x27;./Child&#x27;</span></span><br><span class="line">    <span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">        name: <span class="string">&#x27;test&#x27;</span>,</span><br><span class="line">        components: &#123;</span><br><span class="line">            child</span><br><span class="line">        &#125;,</span><br><span class="line">        data() &#123;</span><br><span class="line">            <span class="keyword">return</span> &#123;</span><br><span class="line">                field: <span class="string">&#x27;父组件初始值&#x27;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>效果：</p>
+<p>​    <img src="/2020/10/31/Vue%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E8%BF%87%E7%A8%8B%E7%9A%84%E4%B8%80%E4%BA%9B%E8%A6%81%E7%82%B9%E6%80%BB%E7%BB%93/sync.gif" class="" title="sync效果"></p>
+<p><strong>3.动态增减项表单校验</strong></p>
+<p>在业务开发中，常常会遇到动态表单增删的情况。这一点使用iView的动态表单增删即可。</p>
+<p>​    <img src="/2020/10/31/Vue%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E8%BF%87%E7%A8%8B%E7%9A%84%E4%B8%80%E4%BA%9B%E8%A6%81%E7%82%B9%E6%80%BB%E7%BB%93/iviewForm1.png" class="" title="iviewForm"></p>
+<p>但是如上图所示，在prop传索引会有问题，它只是按当前索引对应的循环项去校验，因此会在增删的时候误校验，比如第一行为空有校验后，第二行有数据，删除第一行，那么第二行在有数据的情况下，也会被误校验了。解决该问题的办法是我们手动为整个数组每一项新引入一个独一无二的字段id，去替换index。如下，但这样增加了维护成本，需要在每次操作该数组对象的时候id都去加1，在初始化的时候也需要我们根据数组长度手动依次赋值。但我觉得这样值得，因为该id也可以作为循环的key值去赋值，减少了diff算法比较时候的难度。</p>
+<p>​    <img src="/2020/10/31/Vue%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E8%BF%87%E7%A8%8B%E7%9A%84%E4%B8%80%E4%BA%9B%E8%A6%81%E7%82%B9%E6%80%BB%E7%BB%93/iviewForm2.png" class="" title="iviewForm"></p>
+<p><strong>4.防抖、节流</strong></p>
+<p>防抖节流为老生常谈的话题了，代码如下。</p>
+<p>防抖</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">debounce</span>(<span class="params">fun, delay = <span class="number">500</span></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> last, ctx, args;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        ctx = <span class="built_in">this</span>;</span><br><span class="line">        args = <span class="built_in">arguments</span>;</span><br><span class="line">        <span class="built_in">clearTimeout</span>(last);</span><br><span class="line">        last = <span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            fun.apply(ctx, args)</span><br><span class="line">        &#125;, delay);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>节流</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">throttle</span>(<span class="params">fun, delay</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> last, ctx, args;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        ctx = <span class="built_in">this</span>;</span><br><span class="line">        args = <span class="built_in">arguments</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (!last) &#123;</span><br><span class="line">            fun.apply(ctx, args);</span><br><span class="line">            last = <span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">                last = <span class="literal">undefined</span>;</span><br><span class="line">            &#125;, delay)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>（1）节流</p>
+<p>节流在业务中最大的用途我认为是防止在某些操作时候的恶意多次快速点击或者限制某些高频对性能有影响的操作。</p>
+<p>比如删除某一行，点击确定的时候。比如在新增/修改模态框点击确定的时候，如果多次快速点击，会导致发送N次请求，从而导致数据新增了不止一条（我试过为确定按钮加入loading效果，但如果点击的很快速的话，可能也有这个问题）。比如在鼠标滚动时间的时候。引入节流方法中，给相应触发事件绑定即可。对防止恶意多次快速点击的时间建议限制为1500ms。</p>
+<p>（2）防抖</p>
+<p>在某些特殊场景需要通过使用iView Select remote-method通过每次筛选从后台返回数据的时候，用到了。不能在每次变更的时候都去请求，可能造成无意义的消耗，应该在停顿输入后xx毫秒后再去触发请求，建议这种搜索场景300ms合适。</p>
+<p><strong>5.props类型校验</strong></p>
+<p>这个不能算技巧吧，我个人比较喜欢这种类似TypeScript的规范。在组件封装的过程中，对props传递属性的操作是必不可少的，可加入类型判断，默认返回值等。这是我在封装树形组件时候写的，注意对象/数组需要用工厂函数模式返回。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">props: &#123;</span><br><span class="line">    nodes: &#123;</span><br><span class="line">        type: <span class="built_in">Array</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    level: &#123;</span><br><span class="line">        type: <span class="built_in">Number</span>,</span><br><span class="line">        <span class="keyword">default</span>: <span class="number">1</span></span><br><span class="line">    &#125;,</span><br><span class="line">    parentNode: &#123;</span><br><span class="line">        type: <span class="built_in">Object</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    columns: &#123;</span><br><span class="line">        type: <span class="built_in">Array</span></span><br><span class="line">    &#125;,</span><br><span class="line">    options: &#123;</span><br><span class="line">        type: <span class="built_in">Object</span>,</span><br><span class="line">        <span class="keyword">default</span>: <span class="function">() =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> &#123;</span><br><span class="line">                recursion: <span class="string">&#x27;children&#x27;</span>,</span><br><span class="line">                expandLabel: <span class="string">&#x27;expand&#x27;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+<p><strong>6.mixins</strong></p>
+<p>我在业务中遇到的麻烦是，多个组件都有后台分页，且需要同样的分页信息，比如页码，页码大小等，如果每个组件去声明同样的分页信息，太不友好了。因此，我选择使用混入将分页信息混入到相应组件中。但是过度过多的混合，可能会导致数据来源不清晰的问题。但在vue3.0推出的类似react hooks的方法可以解决此问题。</p>
+<p>page-mixin.js中</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> list = &#123;</span><br><span class="line">    data() &#123;</span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">            tableInfo: &#123;</span><br><span class="line">                currentPage: <span class="number">1</span>,</span><br><span class="line">                pageSize: <span class="number">10</span>,</span><br><span class="line">                total: <span class="number">0</span>,</span><br><span class="line">                tableLoading: <span class="literal">false</span>,</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> list</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>在组件中使用</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">    <span class="keyword">import</span> pageInfo <span class="keyword">from</span> <span class="string">&#x27;@/common/page-mixin&#x27;</span></span><br><span class="line">    <span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">        name: <span class="string">&#x27;test&#x27;</span>,</span><br><span class="line">        mixins: [pageInfo]</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>在该组件中直接调用this.tableInfo即可，且每个组件不会互相影响。</p>
+<p><strong>7.三等运算符</strong></p>
+<p>通常使用在三个条件对应三个结果的时候，一行代码可以搞定。比如通过传入模态框的operate字段标识新增/修改/详情，如下：</p>
+<p>let title = this.operate === ‘ADD’ ? ‘新增’ : this.operate === ‘UPDATE’ ? ‘修改’ : ‘详情’</p>
+<p><strong>8.新增对象字段响应式失效</strong></p>
+<p>出现此情况，常常表现为初始时候对象没有该字段，再后续的使用中对于该对象新增了某字段，会导致响应式失效，但值会更新。原因是vue2.0使用的Object.defineProperty 是对已有属性进行的劫持操作，所以 Vue 才要求事先将需要用到的数据定义在 data 中，同时也无法响应对象属性的添加和删除。被劫持的属性会有相应的 get、set 方法。解决方法是使用Vue.set(obj, key, value)，第一个参数为需要新增属性的对象，第二个为新增属性的名字，第三个为新增字段的值。在Vue3.0使用proxy可代理整个对象后，应该可以自身解决该问题。</p>
+<p>如果是对后台返回的数组，需要新加前端要用的字段，可以先用另一个数组暂存，再其遍历组装后，再赋值给data中需要用到它的字段，切忌勿直接对data中的字段赋值后，再去遍历加属性值，除非使用Vue.set()方法。</p>
+<p>如下图，我们需要在前端新加checked等状态标识的字段。</p>
+<p>​    <img src="/2020/10/31/Vue%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E8%BF%87%E7%A8%8B%E7%9A%84%E4%B8%80%E4%BA%9B%E8%A6%81%E7%82%B9%E6%80%BB%E7%BB%93/%E5%93%8D%E5%BA%94%E5%BC%8F1.png" class="" title="响应式"></p>
+<p>也可</p>
+<p>​    <img src="/2020/10/31/Vue%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E8%BF%87%E7%A8%8B%E7%9A%84%E4%B8%80%E4%BA%9B%E8%A6%81%E7%82%B9%E6%80%BB%E7%BB%93/%E5%93%8D%E5%BA%94%E5%BC%8F2.png" class="" title="响应式"></p>
+<p>但个人感觉第一种方式更好。</p>
+<p>Vue3.0不存在此问题，因为使用proxy拦截整个对象。</p>
+<p><strong>9.initForm 及深、浅拷贝</strong></p>
+<p>推介将页面上会使用到的表单字段，提到外面作为常量声明。eg。</p>
+<img src="/2020/10/31/Vue%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E8%BF%87%E7%A8%8B%E7%9A%84%E4%B8%80%E4%BA%9B%E8%A6%81%E7%82%B9%E6%80%BB%E7%BB%93/%E6%B7%B1%E6%B5%85%E6%8B%B7%E8%B4%9D.png" class="" title="深浅拷贝">
+
+<p>在再data中，通过… 解构赋值，通常在数据结构只有一层且其中的value值没有引用数据类型（数组、对象）的时候可行，因为这样的浅拷贝相当于“深拷贝”，即对赋值后的data不会影响初始化的initForm。但是一旦层级超过一层，或者对象的value值有引用类型，就会失效了。所以这时候需要引入深拷贝方法</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">deepClone</span>(<span class="params">source</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!source &amp;&amp; <span class="keyword">typeof</span> source !== <span class="string">&#x27;object&#x27;</span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">&#x27;error arguments&#x27;</span>, <span class="string">&#x27;shallowClone&#x27;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">const</span> targetObj = source.constructor === <span class="built_in">Array</span> ? [] : &#123;&#125;</span><br><span class="line">    <span class="built_in">Object</span>.keys(source).forEach(<span class="function"><span class="params">keys</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (source[keys] &amp;&amp; <span class="keyword">typeof</span> source[keys] === <span class="string">&#x27;object&#x27;</span>) &#123;</span><br><span class="line">            targetObj[keys] = deepClone(source[keys])</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            targetObj[keys] = source[keys]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">return</span> targetObj</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>引入后，form: deepClone(initForm)即可。</p>
+<p>这样做的好处是，在重置查询条件或清空表单的时候，可以再通过上述赋一次值，而避免直接将其值设置为{}，这样可能会出现响应式新增字段失效的问题。</p>
+<p><strong>10. 动态组件is</strong></p>
+<p>（1）场景一：</p>
+<p>在项目开发中，大概率会引入iconfonts等第三方icon库，因为iView的icon库覆盖面并不全面。若想通过一个组件common-icon来统一这两种icon。这时候is特性就排上用场了。</p>
+<p>//common-icon.vue</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;component :is=<span class="string">&quot;iconType&quot;</span> :type=<span class="string">&quot;iconName&quot;</span> :color=<span class="string">&quot;iconColor&quot;</span> :size=<span class="string">&quot;iconSize&quot;</span>/&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line"><span class="keyword">import</span> IceIcon <span class="keyword">from</span> <span class="string">&#x27;@/components/ice-icon&#x27;</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  name: <span class="string">&#x27;CommonIcon&#x27;</span>,</span><br><span class="line">  components: &#123;IceIcon&#125;,</span><br><span class="line">  props: &#123;</span><br><span class="line">    type: &#123;</span><br><span class="line">      type: <span class="built_in">String</span>,</span><br><span class="line">      required: <span class="literal">true</span></span><br><span class="line">    &#125;,</span><br><span class="line">    color: <span class="built_in">String</span>,</span><br><span class="line">    size: <span class="built_in">Number</span></span><br><span class="line">  &#125;,</span><br><span class="line">  computed: &#123;</span><br><span class="line">    iconType () &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">this</span>.type.indexOf(<span class="string">&#x27;_&#x27;</span>) === <span class="number">0</span> ? <span class="string">&#x27;IceIcon&#x27;</span> : <span class="string">&#x27;Icon&#x27;</span></span><br><span class="line">    &#125;,</span><br><span class="line">    iconName () &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">this</span>.iconType === <span class="string">&#x27;IceIcon&#x27;</span> ? <span class="built_in">this</span>.getCustomIconName(<span class="built_in">this</span>.type) : <span class="built_in">this</span>.type</span><br><span class="line">    &#125;,</span><br><span class="line">    iconSize () &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">this</span>.size || (<span class="built_in">this</span>.iconType === <span class="string">&#x27;IceIcon&#x27;</span> ? <span class="number">16</span> : <span class="literal">undefined</span>)</span><br><span class="line">    &#125;,</span><br><span class="line">    iconColor () &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">this</span>.color || <span class="string">&#x27;&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    getCustomIconName (iconName) &#123;</span><br><span class="line">      <span class="keyword">return</span> iconName.slice(<span class="number">1</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>通过引入时候的下划线标识_，来判断是iview的icon还是自定义icon，从而动态的去挂载</p>
+<p>（2）场景二：</p>
+<p>is参数还可以接受组件name，在切换组件的时候特别有用，只需要动态将is后面的参数赋值为相应的组件名，即可动态渲染。</p>
+<p><strong>11. iview Select坑点</strong></p>
+<p><strong>（1）on-change 值为undefined</strong></p>
+<p>在对iView Select 使用on-change的事件，尤其需要注意一点，在外界使用方法强行清空与Select双向绑定的字段的时候，这里会再次触发一次on-change事件，且其value值为undefined，这在某些时候可能会导致bug，因此最好在每个on-change事件前加入判断有值才执行操作。</p>
+<p>​    <img src="/2020/10/31/Vue%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E8%BF%87%E7%A8%8B%E7%9A%84%E4%B8%80%E4%BA%9B%E8%A6%81%E7%82%B9%E6%80%BB%E7%BB%93/iview-select.gif" class="" title="iviewSelect"></p>
+<p><strong>（2）clearable清除后 值为undefined</strong></p>
+<p>在列表查询条件中，可能会给Select下拉框设置清除属性clearable，在选中清除后，再去查询，可以发现接口中并没有该Select绑定的字段了，原因是因为清除后，其值变成了undefined，该字段就被省略掉了，可能会对后台查询有影响。同时清除的时候也会触发on-change绑定事件，所以需要处理下，当其值为undefined的时候转化为空字符。</p>
+<p><strong>12.简化条件判断</strong></p>
+<p>在开发中大量的if else嵌套后期维护起来特别困难，总结以下我平常优化的思路。</p>
+<p>（1）提前终止结果：</p>
+<p>比如必须依赖某值进行下面的逻辑，如果它不存在，直接return即可</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (!val) &#123;</span><br><span class="line">    <span class="keyword">return</span> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>（2）对象替代判断条件，一个操作合集的Modal的title，在计算属性中可以声明</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">computed: &#123;</span><br><span class="line">    title() &#123;</span><br><span class="line">        <span class="keyword">let</span> titleObj = &#123;</span><br><span class="line">            ADD: <span class="string">&#x27;新增xx&#x27;</span>,</span><br><span class="line">            UPDATE: <span class="string">&#x27;修改xx&#x27;</span>,</span><br><span class="line">            SEE: <span class="string">&#x27;查看xx&#x27;</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> titleObj[<span class="built_in">this</span>.operate] <span class="comment">//根据操作符返回相应的操作title</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>（3）多个简单条件，放入数组，通过includes判断</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(condition === <span class="string">&#x27;conditionA&#x27;</span>||condition === <span class="string">&#x27;conditionB&#x27;</span>||condition === <span class="string">&#x27;conditionC&#x27;</span>) &#123;</span><br><span class="line">    <span class="keyword">do</span>()</span><br><span class="line">&#125;</span><br><span class="line">改为:</span><br><span class="line"><span class="keyword">let</span> doConditions = [<span class="string">&#x27;conditionA&#x27;</span>, <span class="string">&#x27;conditionB&#x27;</span>, <span class="string">&#x27;conditionC&#x27;</span>]</span><br><span class="line"><span class="keyword">if</span> (doConditions.includes(condition)) &#123;</span><br><span class="line">    <span class="keyword">do</span>()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>（4）Map集合，必要时候可以使用map去存条件和相应的事件。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> map = <span class="keyword">new</span> <span class="built_in">Map</span></span><br><span class="line"><span class="keyword">let</span> number = <span class="number">7</span></span><br><span class="line"><span class="keyword">let</span> map = <span class="keyword">new</span> <span class="built_in">Map</span>([</span><br><span class="line">    [&#123;</span><br><span class="line">            condition: number &lt; <span class="number">1</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">        () =&gt; &#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="number">1</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    ],</span><br><span class="line">    [&#123;</span><br><span class="line">            condtion: number &gt;= <span class="number">1</span> &amp;&amp; number &lt; <span class="number">4</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">        () =&gt; &#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="number">2</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    ],</span><br><span class="line">    [&#123;</span><br><span class="line">            condition: number &gt;= <span class="number">4</span> &amp;&amp; number &lt; <span class="number">10</span></span><br><span class="line">        &#125;,</span><br><span class="line">        () =&gt; &#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="number">3</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    ],</span><br><span class="line">    [&#123;</span><br><span class="line">            condition: number &gt;= <span class="number">10</span></span><br><span class="line">        &#125;,</span><br><span class="line">        () =&gt; &#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="number">4</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">])</span><br><span class="line"></span><br><span class="line">map.forEach(<span class="function">(<span class="params">key, value</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(value)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<img src="/2020/10/31/Vue%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E8%BF%87%E7%A8%8B%E7%9A%84%E4%B8%80%E4%BA%9B%E8%A6%81%E7%82%B9%E6%80%BB%E7%BB%93/map.png" class="" title="map">
+
+<p>因此可以</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"> map.forEach(<span class="function">(<span class="params">key, value</span>) =&gt;</span> &#123;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">if</span> (value.condition) &#123;</span><br><span class="line"></span><br><span class="line">​     key()</span><br><span class="line"></span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line"> &#125;)</span><br></pre></td></tr></table></figure>
+
+<p><strong>13.vue-cli3 全局less变量</strong></p>
+<p>有时候，我们需要设置全局less变量，比如统一的颜色标准。对于vue-cli3脚手架可以直接在vue.config.js中使用css.loaderOptions选项，</p>
+<p>以less为例：</p>
+<p>// vue.config.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    css: &#123;</span><br><span class="line">        loaderOptions: &#123;</span><br><span class="line">            less: &#123;</span><br><span class="line">                globalVars: &#123;</span><br><span class="line">                    primary: #fff //即申明了primary这个全局颜色变量</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>14.子组件mounted 请求赋值</strong></p>
+<p>我们在给子组件传值且依赖请求完成的时候，不能在子组件的mounted周期里面去处理传入的数据。原因是请求是异步的，请求完成的时候，组件可能早已过了mounted周期。所以最好的方法是去监听该传入值，再做处理。也可使用<component v-if="datas"></component>， datas在请求完成后赋值，这样可以在确保有datas的时候再去渲染组件，就可以在mounted里面处理。</p>
+<p><strong>15.精度丢失</strong></p>
+<p>在js中，某些小数在运算时候，可能会出现精度丢失的情况。详情参加0.1+0.2 != 0.3。在实际开发中，常常会处理一个数乘以另一个数，如果是 0.29 * 100 或者 0.81 * 10000那么结果是</p>
+<img src="/2020/10/31/Vue%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E8%BF%87%E7%A8%8B%E7%9A%84%E4%B8%80%E4%BA%9B%E8%A6%81%E7%82%B9%E6%80%BB%E7%BB%93/%E7%B2%BE%E5%BA%A6%E4%B8%A2%E5%A4%B1.png" class="" title="精度丢失">
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 引入Decimal库进行计算，避免精度丢失问题</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> calcUtil = &#123;</span><br><span class="line">    add: <span class="function">(<span class="params">x, y</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Number</span>(Decimal.add(x, y))</span><br><span class="line">    &#125;,</span><br><span class="line">    sub: <span class="function">(<span class="params">x, y</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Number</span>(Decimal.sub(x, y))</span><br><span class="line">    &#125;,</span><br><span class="line">    mul: <span class="function">(<span class="params">x, y</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Number</span>(Decimal.mul(x, y))</span><br><span class="line">    &#125;,</span><br><span class="line">    div: <span class="function">(<span class="params">x, y</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Number</span>(Decimal.div(x, y))</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>在项目中未怎么使用却值得关注的特性：</strong></p>
+<p><strong>1.slot（v2.6.0 统一用指令v-slot替代之前的写法）</strong></p>
+<p>如下为，根据level的传值来决定渲染的标签元素。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">        &lt;child :level=<span class="string">&quot;level&quot;</span>&gt;Hello world!&lt;/child&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script type=<span class="string">&#x27;text/javascript&#x27;</span>&gt;</span><br><span class="line">    <span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span><br><span class="line">    Vue.component(<span class="string">&#x27;child&#x27;</span>, &#123;</span><br><span class="line">        props: &#123;</span><br><span class="line">            level: &#123; </span><br><span class="line">                type: <span class="built_in">Number</span>, </span><br><span class="line">                required: <span class="literal">true</span> </span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        render(h) &#123;</span><br><span class="line">            <span class="keyword">const</span> tag = [<span class="string">&#x27;div&#x27;</span>, <span class="string">&#x27;p&#x27;</span>, <span class="string">&#x27;strong&#x27;</span>, <span class="string">&#x27;h1&#x27;</span>, <span class="string">&#x27;h2&#x27;</span>, <span class="string">&#x27;textarea&#x27;</span>][<span class="built_in">this</span>.level]</span><br><span class="line">            <span class="keyword">return</span> h(tag, <span class="built_in">this</span>.$slots.default)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">        name: <span class="string">&#x27;hehe&#x27;</span>,</span><br><span class="line">        data() &#123; <span class="keyword">return</span> &#123; <span class="attr">level</span>: <span class="number">5</span> &#125; &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>2.指令</strong></p>
+<p>有些场景，需要对一些元素进行特殊处理，比如以下保证输入只能是两位小数，可以考虑封装成指令。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">        &lt;input v-model=<span class="string">&quot;obj.price&quot;</span> v-limit-input=<span class="string">&quot;obj&quot;</span> /&gt;&#123;&#123;obj.price&#125;&#125;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script type=<span class="string">&#x27;text/javascript&#x27;</span>&gt;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">keepTwoIntegerDecimals</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">let</span> t = e.target.value.charAt(<span class="number">0</span>);</span><br><span class="line">        e.target.value = e.target.value.replace(<span class="regexp">/[^\d.]/g</span>, <span class="string">&quot;&quot;</span>); <span class="comment">//清除“数字”和“.”以外的字符</span></span><br><span class="line">        e.target.value = e.target.value.replace(<span class="regexp">/^\./g</span>, <span class="string">&quot;&quot;</span>); <span class="comment">//验证第一个字符是数字而不是.</span></span><br><span class="line">        e.target.value = e.target.value.replace(<span class="regexp">/^\-/g</span>, <span class="string">&quot;&quot;</span>); <span class="comment">//验证第一个字符是数字而不是-</span></span><br><span class="line">        e.target.value = e.target.value.replace(<span class="regexp">/\.&#123;2,&#125;/g</span>, <span class="string">&quot;.&quot;</span>); <span class="comment">//只保留第一个. 清除多余的</span></span><br><span class="line">        e.target.value = e.target.value.replace(<span class="string">&quot;.&quot;</span>, <span class="string">&quot;$#$&quot;</span>).replace(<span class="regexp">/\./g</span>, <span class="string">&quot;&quot;</span>).replace(<span class="string">&quot;$#$&quot;</span>, <span class="string">&quot;.&quot;</span>);</span><br><span class="line">        e.target.value = e.target.value.replace(<span class="regexp">/^(\-)*(\d+)\.(\d\d).*$/</span>, <span class="string">&#x27;$1$2.$3&#x27;</span>); <span class="comment">//只能输入两个小数</span></span><br><span class="line">        <span class="keyword">if</span> (e.target.value.indexOf(<span class="string">&quot;.&quot;</span>) &lt; <span class="number">0</span> &amp;&amp; e.target.value != <span class="string">&quot;&quot;</span>) &#123; <span class="comment">//以上已经过滤，此处控制的是如果没有小数点，首位不能为类似于 01、02的金额</span></span><br><span class="line">            e.target.value = <span class="built_in">parseFloat</span>(e.target.value);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> e.target.value;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span><br><span class="line">    Vue.directive(<span class="string">&#x27;limit-input&#x27;</span>, &#123;</span><br><span class="line">        bind(el, binding) &#123;</span><br><span class="line">            el.oninput = <span class="function"><span class="params">e</span> =&gt;</span> &#123;</span><br><span class="line">                <span class="keyword">let</span> limitValue =  keepTwoIntegerDecimals(e)</span><br><span class="line">                e.target.value = limitValue</span><br><span class="line">                <span class="comment">// binding.value 相当于obj这个对象, 传的引用, 就可以直接改了</span></span><br><span class="line">                binding.value.price = limitValue</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">        name: <span class="string">&#x27;hehe&#x27;</span>,</span><br><span class="line">        data() &#123;</span><br><span class="line">            <span class="keyword">return</span> &#123;</span><br><span class="line">                obj: &#123;</span><br><span class="line">                    price: <span class="number">1</span> <span class="comment">// 这里必须放在对象里, 作为引用类型</span></span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>3.函数式组件（无状态组件）</strong></p>
+<p>功能组件可以快速执行，因为它们没有状态，并且在数据的值改变时不会像模板的组件那样经历相同的初始化和重新渲染过程。通常，功能组件对于渲染或用于循环显示项目是有用的。在子组件中，直接通过props来获取父组件的方法与属性。</p>
+<p>// child.vue</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;template functional&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;p v-<span class="keyword">for</span>=<span class="string">&quot;data in props.list&quot;</span> :key=<span class="string">&quot;data&quot;</span> @click=<span class="string">&quot;props.chooseItem(data)&quot;</span>&gt;&#123;&#123;data&#125;&#125; &lt;/p&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;父组件中</span><br><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;Child :list&#x3D;&quot;list&quot; :chooseItem&#x3D;&quot;chooseItem&quot;&gt;&lt;&#x2F;Child&gt;</span><br><span class="line">&lt;&#x2F;template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">import Child from &#39;.&#x2F;Child&#39;</span><br><span class="line">export default &#123;</span><br><span class="line">    name: &#39;home&#39;,</span><br><span class="line">    components: &#123;</span><br><span class="line">        Child</span><br><span class="line">    &#125;,</span><br><span class="line">    data() &#123;</span><br><span class="line">        return &#123;</span><br><span class="line">            list: [&#39;spring&#39;, &#39;summer&#39;, &#39;autumn&#39;, &#39;winter&#39;]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    methods: &#123;</span><br><span class="line">        chooseItem(data) &#123;</span><br><span class="line">            console.log(data)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;&#x2F;script&gt;</span><br></pre></td></tr></table></figure>
+
+<img src="/2020/10/31/Vue%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E8%BF%87%E7%A8%8B%E7%9A%84%E4%B8%80%E4%BA%9B%E8%A6%81%E7%82%B9%E6%80%BB%E7%BB%93/function.gif" class="" title="function">
+
+<p><strong>4.Vue.observable（v2.6.0 ）</strong></p>
+<p>创建一个响应对象，必须在一个Vue实例中配置。现在我们可以在Vue实例外部，通过使用Vue.observable(data)创建，如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&lt;script type=<span class="string">&#x27;text/javascript&#x27;</span>&gt;</span><br><span class="line">    <span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span><br><span class="line">    <span class="keyword">const</span> state = Vue.observable(&#123; <span class="attr">count</span>: <span class="number">0</span> &#125;)</span><br><span class="line">    <span class="keyword">const</span> Demo = &#123;</span><br><span class="line">        render(h) &#123;</span><br><span class="line">            <span class="keyword">return</span> h(<span class="string">&#x27;button&#x27;</span>, &#123;</span><br><span class="line">                on: &#123;</span><br><span class="line">                    click: <span class="function">() =&gt;</span> &#123;</span><br><span class="line">                        state.count++</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;, <span class="string">`count is: <span class="subst">$&#123;state.count&#125;</span>`</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">        render() &#123;</span><br><span class="line">            <span class="keyword">return</span> ( </span><br><span class="line">                &lt;Demo&gt;&lt;/Demo&gt;</span><br><span class="line">            )</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -173,133 +360,106 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/10/31/Vue%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E8%BF%87%E7%A8%8B%E7%9A%84%E4%B8%80%E4%BA%9B%E8%A6%81%E7%82%B9%E6%80%BB%E7%BB%93/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/09/13/Vue%E4%B8%ADrender%E5%87%BD%E6%95%B0%E7%9A%84%E8%BF%90%E7%94%A8%E5%9C%BA%E6%99%AF/" class="archive-article-date">
-  	<time datetime="2020-09-13T11:15:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-13</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2020/09/13/Vue%E4%B8%ADrender%E5%87%BD%E6%95%B0%E7%9A%84%E8%BF%90%E7%94%A8%E5%9C%BA%E6%99%AF/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Vue中render函数的运用场景</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/09/13/Vue%E4%B8%ADrender%E5%87%BD%E6%95%B0%E7%9A%84%E8%BF%90%E7%94%A8%E5%9C%BA%E6%99%AF/">Vue中render函数的运用场景</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Vue.js</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/08/06/Vue%E4%B8%AD%E5%88%A9%E7%94%A8%E9%80%92%E5%BD%92%E7%BB%84%E4%BB%B6%E5%86%99%E5%A4%9A%E7%BA%A7%E5%B1%95%E5%BC%80%E6%A0%91/" class="archive-article-date">
-  	<time datetime="2020-08-06T01:29:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-06</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/08/06/Vue%E4%B8%AD%E5%88%A9%E7%94%A8%E9%80%92%E5%BD%92%E7%BB%84%E4%BB%B6%E5%86%99%E5%A4%9A%E7%BA%A7%E5%B1%95%E5%BC%80%E6%A0%91/">Vue中利用递归组件写多级展开树</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Vue.js</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/07/30/%E5%AF%B9JS%E5%87%BD%E6%95%B0%E6%A6%82%E5%BF%B5%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/" class="archive-article-date">
-  	<time datetime="2020-07-30T06:43:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-30</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/07/30/%E5%AF%B9JS%E5%87%BD%E6%95%B0%E6%A6%82%E5%BF%B5%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/">对JS函数概念的一些理解总结</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JavaScript</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -322,8 +482,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
