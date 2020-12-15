@@ -6,49 +6,15 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>对JS函数概念的一些理解总结 | 夏铭蔚的blog</title>
+  <title>Archives: 2020/12 | 夏铭蔚的blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="函数相关概念解析：JS是门函数式语言，函数是第一公民，此文总结涉及到的一些概念，并加入了自己的理解。主要内容为执行上下文、作用域、this、构造函数、new运算符、instanceof、原型链、闭包、柯理化、constructor、内存溢出、闭包、对call&#x2F;apply&#x2F;bind进行原生实现等。">
-<meta property="og:type" content="article">
-<meta property="og:title" content="对JS函数概念的一些理解总结">
-<meta property="og:url" content="http://yoursite.com/2020/07/30/%E5%AF%B9JS%E5%87%BD%E6%95%B0%E6%A6%82%E5%BF%B5%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="夏铭蔚的blog">
+<meta property="og:url" content="http://yoursite.com/archives/2020/12/index.html">
 <meta property="og:site_name" content="夏铭蔚的blog">
-<meta property="og:description" content="函数相关概念解析：JS是门函数式语言，函数是第一公民，此文总结涉及到的一些概念，并加入了自己的理解。主要内容为执行上下文、作用域、this、构造函数、new运算符、instanceof、原型链、闭包、柯理化、constructor、内存溢出、闭包、对call&#x2F;apply&#x2F;bind进行原生实现等。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://yoursite.com/2020/07/30/%E5%AF%B9JS%E5%87%BD%E6%95%B0%E6%A6%82%E5%BF%B5%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/stack.png">
-<meta property="og:image" content="http://yoursite.com/2020/07/30/%E5%AF%B9JS%E5%87%BD%E6%95%B0%E6%A6%82%E5%BF%B5%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/this1.png">
-<meta property="og:image" content="http://yoursite.com/2020/07/30/%E5%AF%B9JS%E5%87%BD%E6%95%B0%E6%A6%82%E5%BF%B5%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/this2.png">
-<meta property="og:image" content="http://yoursite.com/2020/07/30/%E5%AF%B9JS%E5%87%BD%E6%95%B0%E6%A6%82%E5%BF%B5%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/this3.png">
-<meta property="og:image" content="http://yoursite.com/2020/07/30/%E5%AF%B9JS%E5%87%BD%E6%95%B0%E6%A6%82%E5%BF%B5%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/new5.png">
-<meta property="og:image" content="http://yoursite.com/2020/07/30/%E5%AF%B9JS%E5%87%BD%E6%95%B0%E6%A6%82%E5%BF%B5%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/new1.png">
-<meta property="og:image" content="http://yoursite.com/2020/07/30/%E5%AF%B9JS%E5%87%BD%E6%95%B0%E6%A6%82%E5%BF%B5%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/new2.png">
-<meta property="og:image" content="http://yoursite.com/2020/07/30/%E5%AF%B9JS%E5%87%BD%E6%95%B0%E6%A6%82%E5%BF%B5%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/new3.png">
-<meta property="og:image" content="http://yoursite.com/2020/07/30/%E5%AF%B9JS%E5%87%BD%E6%95%B0%E6%A6%82%E5%BF%B5%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/new4.png">
-<meta property="og:image" content="http://yoursite.com/2020/07/30/%E5%AF%B9JS%E5%87%BD%E6%95%B0%E6%A6%82%E5%BF%B5%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/instanceof1.webp">
-<meta property="og:image" content="http://yoursite.com/2020/07/30/%E5%AF%B9JS%E5%87%BD%E6%95%B0%E6%A6%82%E5%BF%B5%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/instanceof2.webp">
-<meta property="og:image" content="http://yoursite.com/2020/07/30/%E5%AF%B9JS%E5%87%BD%E6%95%B0%E6%A6%82%E5%BF%B5%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/p1.png">
-<meta property="og:image" content="http://yoursite.com/2020/07/30/%E5%AF%B9JS%E5%87%BD%E6%95%B0%E6%A6%82%E5%BF%B5%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/p2.png">
-<meta property="og:image" content="http://yoursite.com/2020/07/30/%E5%AF%B9JS%E5%87%BD%E6%95%B0%E6%A6%82%E5%BF%B5%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/curry1.png">
-<meta property="og:image" content="http://yoursite.com/2020/07/30/%E5%AF%B9JS%E5%87%BD%E6%95%B0%E6%A6%82%E5%BF%B5%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/curry2.png">
-<meta property="og:image" content="http://yoursite.com/2020/07/30/%E5%AF%B9JS%E5%87%BD%E6%95%B0%E6%A6%82%E5%BF%B5%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/curry3.png">
-<meta property="og:image" content="http://yoursite.com/2020/07/30/%E5%AF%B9JS%E5%87%BD%E6%95%B0%E6%A6%82%E5%BF%B5%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/curry4.png">
-<meta property="og:image" content="http://yoursite.com/2020/07/30/%E5%AF%B9JS%E5%87%BD%E6%95%B0%E6%A6%82%E5%BF%B5%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/constructor.png">
-<meta property="og:image" content="http://yoursite.com/2020/07/30/%E5%AF%B9JS%E5%87%BD%E6%95%B0%E6%A6%82%E5%BF%B5%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/call1.png">
-<meta property="og:image" content="http://yoursite.com/2020/07/30/%E5%AF%B9JS%E5%87%BD%E6%95%B0%E6%A6%82%E5%BF%B5%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/call2.png">
-<meta property="og:image" content="http://yoursite.com/2020/07/30/%E5%AF%B9JS%E5%87%BD%E6%95%B0%E6%A6%82%E5%BF%B5%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/call3.png">
-<meta property="og:image" content="http://yoursite.com/2020/07/30/%E5%AF%B9JS%E5%87%BD%E6%95%B0%E6%A6%82%E5%BF%B5%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/call4.png">
-<meta property="og:image" content="http://yoursite.com/2020/07/30/%E5%AF%B9JS%E5%87%BD%E6%95%B0%E6%A6%82%E5%BF%B5%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/apply1.png">
-<meta property="og:image" content="http://yoursite.com/2020/07/30/%E5%AF%B9JS%E5%87%BD%E6%95%B0%E6%A6%82%E5%BF%B5%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/apply2.png">
-<meta property="og:image" content="http://yoursite.com/2020/07/30/%E5%AF%B9JS%E5%87%BD%E6%95%B0%E6%A6%82%E5%BF%B5%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/apply3.png">
-<meta property="og:image" content="http://yoursite.com/2020/07/30/%E5%AF%B9JS%E5%87%BD%E6%95%B0%E6%A6%82%E5%BF%B5%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/bind1.png">
-<meta property="og:image" content="http://yoursite.com/2020/07/30/%E5%AF%B9JS%E5%87%BD%E6%95%B0%E6%A6%82%E5%BF%B5%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/bind2.png">
-<meta property="og:image" content="http://yoursite.com/2020/07/30/%E5%AF%B9JS%E5%87%BD%E6%95%B0%E6%A6%82%E5%BF%B5%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/bind3.png">
-<meta property="article:published_time" content="2020-07-30T06:43:35.000Z">
-<meta property="article:modified_time" content="2020-07-30T08:05:12.021Z">
 <meta property="article:author" content="夏铭蔚">
-<meta property="article:tag" content="JavaScript">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/2020/07/30/%E5%AF%B9JS%E5%87%BD%E6%95%B0%E6%A6%82%E5%BF%B5%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/stack.png">
   
     <link rel="alternative" href="/atom.xml" title="夏铭蔚的blog" type="application/atom+xml">
   
@@ -166,316 +132,60 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-对JS函数概念的一些理解总结" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      对JS函数概念的一些理解总结
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2020" class="archive-year">2020</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2020/12/15/%E5%88%9D%E8%AF%86Angular%E7%9A%84%E4%B8%AD%E7%9A%84%E4%BE%9D%E8%B5%96%E5%80%92%E7%BD%AE%E3%80%81%E6%8E%A7%E5%88%B6%E5%8F%8D%E8%BD%AC%E3%80%81%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5%E6%80%9D%E6%83%B3/" class="archive-article-date">
+  	<time datetime="2020-12-15T13:32:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-15</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2020/12/15/%E5%88%9D%E8%AF%86Angular%E7%9A%84%E4%B8%AD%E7%9A%84%E4%BE%9D%E8%B5%96%E5%80%92%E7%BD%AE%E3%80%81%E6%8E%A7%E5%88%B6%E5%8F%8D%E8%BD%AC%E3%80%81%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5%E6%80%9D%E6%83%B3/">初识Angular的中的依赖倒置、控制反转、依赖注入思想</a>
     </h1>
   
 
-        
-        <a href="/2020/07/30/%E5%AF%B9JS%E5%87%BD%E6%95%B0%E6%A6%82%E5%BF%B5%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/" class="archive-article-date">
-  	<time datetime="2020-07-30T06:43:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-30</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="函数相关概念解析："><a href="#函数相关概念解析：" class="headerlink" title="函数相关概念解析："></a><strong>函数相关概念解析：</strong></h4><p>JS是门函数式语言，函数是第一公民，此文总结涉及到的一些概念，并加入了自己的理解。主要内容为执行上下文、作用域、this、构造函数、new运算符、instanceof、原型链、闭包、柯理化、constructor、内存溢出、闭包、对call/apply/bind进行原生实现等。</p>
-<a id="more"></a>
-
-<h5 id="1-函数运行："><a href="#1-函数运行：" class="headerlink" title="1.函数运行："></a>1.函数运行：</h5><p>开辟一个堆内存，创建一个函数f，在当前上下文中声明f，再将开辟的堆内存地址赋值给f</p>
-<h5 id="2-执行上下文（执行环境）ECSTACK："><a href="#2-执行上下文（执行环境）ECSTACK：" class="headerlink" title="2.执行上下文（执行环境）ECSTACK："></a>2.执行上下文（执行环境）ECSTACK：</h5><p> 执行上下文是为可执行代码执行前做必要的准备工作，里面有变量对象（VO)、活动对象（AO)、作用域链（scope-chain)、调用信息(this)。其分为全局，函数，eval。全局上下文（window)在执行时始终在执行栈底部，函数执行上下文是函数被调用时候创建（无论是否重复调用）。其生命周期包括创建、执行、销毁。</p>
-<p>引申：</p>
-<p>（1）.变量对象（VO）：</p>
-<p>全局的始终存在。比如let a = 12;首先创建一个值，再创建一个变量a，把其存到VO(Global)中，再赋值。</p>
-<p>函数的局部运行时才有，里面包含了变量和参数信息，不能直接访问，在运行时变成AO才可访问。</p>
-<p>（2）.活动对象（AO）：</p>
-<p>里面包含了arguments和this可以访问。</p>
-<img src="/2020/07/30/%E5%AF%B9JS%E5%87%BD%E6%95%B0%E6%A6%82%E5%BF%B5%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/stack.png" class="" title="活动对象">
-
-<p>（3）.声明周期：</p>
-<p>A.创建：</p>
-<p>函数执行时，统一将其中的变量定义为undefined，赋值的时候再赋值。（变量提升）函数则直接定义。</p>
-<p>B.执行：</p>
-<p>执行栈中执行</p>
-<p>C.销毁：</p>
-<p>一般情况下出栈并销毁，除了闭包。闭包会常驻内存中导致内存泄露。</p>
-<h5 id="3-作用域：（本质是链表）"><a href="#3-作用域：（本质是链表）" class="headerlink" title="3.作用域：（本质是链表）"></a>3.作用域：（本质是链表）</h5><p>控制当前代码对变量的访问权限。当前作用域没有时，便会顺着作用域向上查找。顺到全局后，还没则返回undefined。</p>
-<p>（1）.词法（静态）作用域：定义阶段作用域，写代码的时候就决定了的变量作用域</p>
-<p>（2）.动态作用域：在函数调用时才决定的作用域</p>
-<h5 id="4-this"><a href="#4-this" class="headerlink" title="4.this:"></a>4.this:</h5><p> A.除了箭头函数，this只能在运行的时候确定，总是指向调用该函数的对象。因为this存在于执行上下文中，而执行上下文是运行前才会确定，所以this同理。其调用位置是函数在代码中被调用的位置（调用位置为当前正在执行的函数的前一个调用中）。</p>
-<img src="/2020/07/30/%E5%AF%B9JS%E5%87%BD%E6%95%B0%E6%A6%82%E5%BF%B5%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/this1.png" class="" title="this指向">
-
-<p>B. 改变this指向</p>
-<img src="/2020/07/30/%E5%AF%B9JS%E5%87%BD%E6%95%B0%E6%A6%82%E5%BF%B5%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/this2.png" class="" title="this指向">
-
-<img src="/2020/07/30/%E5%AF%B9JS%E5%87%BD%E6%95%B0%E6%A6%82%E5%BF%B5%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/this3.png" class="" title="this指向">
-
-<p>C.箭头函数：定义时，根据外层词法作用域确定。（不一定是第一层或第二层，而是根据作用域链往上找）</p>
-<h5 id="5-构造函数："><a href="#5-构造函数：" class="headerlink" title="5.构造函数："></a>5.构造函数：</h5><p>通过new关键字来调用的函数，称为构造调用</p>
-<table>
-<thead>
-<tr>
-<th>构造函数（其实不存在，自身就是一个普通函数）</th>
-<th>普通函数</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>首字母通常是大写。</td>
-<td></td>
-</tr>
-<tr>
-<td>内部通过this来构造属性和方法</td>
-<td></td>
-</tr>
-<tr>
-<td>创建一个新对象且作为值返回（指定返回值是基础数据类型会被无视，是对象会被使用）</td>
-<td>返回值为undefined</td>
-</tr>
-</tbody></table>
-<h5 id="6-new："><a href="#6-new：" class="headerlink" title="6.new："></a>6.new：</h5><p>用来调用构造函数，它会使构造函数返回一个对象，且使该对象能访问构造函数属性及其原型上的属性。</p>
-<img src="/2020/07/30/%E5%AF%B9JS%E5%87%BD%E6%95%B0%E6%A6%82%E5%BF%B5%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/new5.png" class="" title="new指令">
-
-<p>（1）.构造函数有返回值：</p>
-<img src="/2020/07/30/%E5%AF%B9JS%E5%87%BD%E6%95%B0%E6%A6%82%E5%BF%B5%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/new1.png" class="" title="new指令">
-
-<img src="/2020/07/30/%E5%AF%B9JS%E5%87%BD%E6%95%B0%E6%A6%82%E5%BF%B5%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/new2.png" class="" title="new指令">
-
-<p>（2）.构造函数没有返回值</p>
-<img src="/2020/07/30/%E5%AF%B9JS%E5%87%BD%E6%95%B0%E6%A6%82%E5%BF%B5%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/new3.png" class="" title="new指令">
-
-<img src="/2020/07/30/%E5%AF%B9JS%E5%87%BD%E6%95%B0%E6%A6%82%E5%BF%B5%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/new4.png" class="" title="new指令">
-
-<h5 id="7-instanceof："><a href="#7-instanceof：" class="headerlink" title="7.instanceof："></a>7.instanceof：</h5><p>检查构造函数的原型对象prototype是否出现在对象的原型链上。</p>
-<p>eg.A instanceof B，A必须是JS对象，B必须是函数。判断B.prototype是否在A的原型链上。是返回true，否则返回false。</p>
-<img src="/2020/07/30/%E5%AF%B9JS%E5%87%BD%E6%95%B0%E6%A6%82%E5%BF%B5%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/instanceof1.webp" class="" title="instanceof">
-
-<p>Person也会有自己的原型链，顶层为Object。所以</p>
-<img src="/2020/07/30/%E5%AF%B9JS%E5%87%BD%E6%95%B0%E6%A6%82%E5%BF%B5%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/instanceof2.webp" class="" title="instanceof">
-
-<p>p1 instanceof Object也为true</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">myIntstanceOf</span>(<span class="params">left, right</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">const</span> RP = right.prototype;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">while</span>(<span class="literal">true</span>) &#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (left === <span class="literal">null</span>) &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (left === RP) &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  left = left.__proto__;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h5 id="8-原型链："><a href="#8-原型链：" class="headerlink" title="8.原型链："></a>8.原型链：</h5><p>每个对象拥有一个原型对象，可通过<strong>proto</strong>(可访问到对象内部的prototype)设置/访问该对象的原型。通过原型可对构造函数进行扩展，让其实例对象也可访问。当构造函数实例访问一个属性的时候，会从构造函数本体上查找，没有再去其原型对象查找，最后找到Object，没有则返回null。从构造函数到原型的prototype的链接就是原型链。</p>
-<img src="/2020/07/30/%E5%AF%B9JS%E5%87%BD%E6%95%B0%E6%A6%82%E5%BF%B5%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/p1.png" class="" title="原型链">
-
-<img src="/2020/07/30/%E5%AF%B9JS%E5%87%BD%E6%95%B0%E6%A6%82%E5%BF%B5%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/p2.png" class="" title="原型链">
-
-<p><strong>以下引用“木易杨”大神原话：</strong></p>
-<p>对于 Function.<strong>proto</strong> === Function.prototype （鸡蛋问题，为何自身的__proto会指向自身的原型）这一现象有 2 种解释，争论点在于 Function 对象是不是由 Function 构造函数创建的一个实例？</p>
-<p>解释 1、YES：按照 JavaScript 中“实例”的定义，a 是 b 的实例即 a instanceof b 为 true，默认判断条件就是 b.prototype 在 a 的原型链上。而 Function instanceof Function 为 true，本质上即 Object.getPrototypeOf(Function) === Function.prototype，正符合此定义。</p>
-<p>解释 2、NO：Function 是 built-in 的对象，也就是并不存在“Function对象由Function构造函数创建”这样显然会造成鸡生蛋蛋生鸡的问题。实际上，当你直接写一个函数时（如 function f() {} 或 x =&gt; x），也不存在调用 Function 构造器，只有在显式调用 Function 构造器时（如 new Function(‘x’, ‘return x’) ）才有。先有 Function.prototype 然后有的 function Function() ，所以就不存在鸡生蛋蛋生鸡问题了，把 Function.<strong>proto</strong> 指向 Function.prototype 是为了保证原型链的完整，让 Function 可以获取定义在 Object.prototype 上的方法。</p>
-<h5 id="9-闭包："><a href="#9-闭包：" class="headerlink" title="9.闭包："></a>9.闭包：</h5><p>能够访问其他函数内部变量的函数。具有自闭性和缓存性。利用自闭性可以封装私有变量，因为外部函数无法访问闭包内部，可以也可以防止作用域污染问题。利用缓存性可以缓存一些函数的结果，比如函数柯里化的实现。但是过多的利用闭包可能会导致内存泄漏。</p>
-<h5 id="10-柯理化："><a href="#10-柯理化：" class="headerlink" title="10.柯理化："></a>10.柯理化：</h5><p>多参数变为单一参数，返回余下参数作为返回结果的新函数。</p>
-<p>常规：</p>
-<img src="/2020/07/30/%E5%AF%B9JS%E5%87%BD%E6%95%B0%E6%A6%82%E5%BF%B5%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/curry1.png" class="" title="柯理化">
-
-<p>ES6精简版</p>
-<img src="/2020/07/30/%E5%AF%B9JS%E5%87%BD%E6%95%B0%E6%A6%82%E5%BF%B5%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/curry2.png" class="" title="柯理化">
-
-<img src="/2020/07/30/%E5%AF%B9JS%E5%87%BD%E6%95%B0%E6%A6%82%E5%BF%B5%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/curry3.png" class="" title="柯理化">
-
-<img src="/2020/07/30/%E5%AF%B9JS%E5%87%BD%E6%95%B0%E6%A6%82%E5%BF%B5%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/curry4.png" class="" title="柯理化">
-
-<p>（1）.参数复用</p>
-<p>（2）.延迟复用</p>
-<h5 id="11-constructor"><a href="#11-constructor" class="headerlink" title="11.constructor"></a>11.constructor</h5><p>构造函数原型的constructor便是构造函数本身</p>
-<img src="/2020/07/30/%E5%AF%B9JS%E5%87%BD%E6%95%B0%E6%A6%82%E5%BF%B5%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/constructor.png" class="" title="constructor">
-
-<h5 id="12-内存问题"><a href="#12-内存问题" class="headerlink" title="12.内存问题"></a>12.内存问题</h5><p>（1）.内存回收：垃圾自动回收机制，每隔段时间执行一次释放操作，找出不再继续使用的值，并释放其内存。</p>
-<p>A.局部变量：函数执行完回收</p>
-<p>B.全局变量：很难判断，避免使用</p>
-<p>（2）.垃圾回收算法：</p>
-<p>A.引用计数（现代浏览器不再使用：两个对象互相循环引用）：看一个对象是否有指向它的引用，若没有，说明不被需要了。</p>
-<p>B.标记清除（常用）：从根（全局对象）出发定时扫描内存中对象，能从根部到达的保留。无法触及标记为不再使用。</p>
-<p>（3）.内存泄露：不再使用的内存不能及时释放，导致内存占用越来越高，影响性能</p>
-<p>A.全局变量</p>
-<p>B.setInterval计时器不手动置空</p>
-<p>（4）.闭包</p>
-<h5 id="13-原生实现call-apply-bind"><a href="#13-原生实现call-apply-bind" class="headerlink" title="13.原生实现call,apply,bind"></a>13.原生实现call,apply,bind</h5><p>（1）. call</p>
-<p>模拟实现第一步</p>
-<p>如果在调用call()的时候把函数 bar()添加到foo()对象中，即如下</p>
-<img src="/2020/07/30/%E5%AF%B9JS%E5%87%BD%E6%95%B0%E6%A6%82%E5%BF%B5%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/call1.png" class="" title="call">
-
-<p>这个改动就可以实现：改变了this的指向并且执行了函数bar。</p>
-<p>但是这样写是有副作用的，即给foo额外添加了一个属性，怎么解决呢？</p>
-<p>解决方法很简单，用 delete 删掉就好了。</p>
-<p>所以只要实现下面3步就可以模拟实现了。</p>
-<p>A.将函数设置为对象的属性：foo.fn = bar</p>
-<p>B.执行函数：foo.fn()</p>
-<p>C.删除函数：delete foo.fn</p>
-<img src="/2020/07/30/%E5%AF%B9JS%E5%87%BD%E6%95%B0%E6%A6%82%E5%BF%B5%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/call2.png" class="" title="call">
-
-<img src="/2020/07/30/%E5%AF%B9JS%E5%87%BD%E6%95%B0%E6%A6%82%E5%BF%B5%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/call3.png" class="" title="call">
-
-<img src="/2020/07/30/%E5%AF%B9JS%E5%87%BD%E6%95%B0%E6%A6%82%E5%BF%B5%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/call4.png" class="" title="call">
-
-<p>（2）.apply 用法和call大同小异，只是传入参数为数组</p>
-<img src="/2020/07/30/%E5%AF%B9JS%E5%87%BD%E6%95%B0%E6%A6%82%E5%BF%B5%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/apply1.png" class="" title="apply">
-
-<img src="/2020/07/30/%E5%AF%B9JS%E5%87%BD%E6%95%B0%E6%A6%82%E5%BF%B5%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/apply2.png" class="" title="apply">
-
-<img src="/2020/07/30/%E5%AF%B9JS%E5%87%BD%E6%95%B0%E6%A6%82%E5%BF%B5%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/apply3.png" class="" title="apply">
-
-<p>（3）.bind</p>
-<img src="/2020/07/30/%E5%AF%B9JS%E5%87%BD%E6%95%B0%E6%A6%82%E5%BF%B5%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/bind1.png" class="" title="bind">
-
-<p>外加：</p>
-<img src="/2020/07/30/%E5%AF%B9JS%E5%87%BD%E6%95%B0%E6%A6%82%E5%BF%B5%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/bind2.png" class="" title="bind">
-
-<p>实现如下：</p>
-<img src="/2020/07/30/%E5%AF%B9JS%E5%87%BD%E6%95%B0%E6%A6%82%E5%BF%B5%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/bind3.png" class="" title="bind">
-      
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JavaScript</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Angular</a>
         		</li>
       		
 		</ul>
 	</div>
 
-      
+          
 
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/07/30/%E5%AF%B9JS%E5%87%BD%E6%95%B0%E6%A6%82%E5%BF%B5%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2020/08/06/Vue%E4%B8%AD%E5%88%A9%E7%94%A8%E9%80%92%E5%BD%92%E7%BB%84%E4%BB%B6%E5%86%99%E5%A4%9A%E7%BA%A7%E5%B1%95%E5%BC%80%E6%A0%91/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Vue中利用递归组件写多级展开树
-        
-      </div>
-    </a>
   
   
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-  
+    </div></section>
   
 
-  
-
-  
-
-  
+    
 
 
           </div>
@@ -498,8 +208,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
-		isArchive: false,
+		isPost: false,
+		isArchive: true,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
