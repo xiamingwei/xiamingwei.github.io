@@ -134,6 +134,82 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Electron+Angular依赖倒置抽象类解决单元测试报错" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/12/30/Electron+Angular%E4%BE%9D%E8%B5%96%E5%80%92%E7%BD%AE%E6%8A%BD%E8%B1%A1%E7%B1%BB%E8%A7%A3%E5%86%B3%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E6%8A%A5%E9%94%99/">Electron+Angular依赖倒置抽象类解决单元测试报错</a>
+    </h1>
+  
+
+        
+        <a href="/2020/12/30/Electron+Angular%E4%BE%9D%E8%B5%96%E5%80%92%E7%BD%AE%E6%8A%BD%E8%B1%A1%E7%B1%BB%E8%A7%A3%E5%86%B3%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E6%8A%A5%E9%94%99/" class="archive-article-date">
+  	<time datetime="2020-12-30T09:30:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-30</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>场景：在Electron+Angular的项目中，遇到了无法执行单元测试的问题。使用ng test</p>
+<p>​    <img src="/2020/12/30/Electron+Angular%E4%BE%9D%E8%B5%96%E5%80%92%E7%BD%AE%E6%8A%BD%E8%B1%A1%E7%B1%BB%E8%A7%A3%E5%86%B3%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E6%8A%A5%E9%94%99/error.png" class="" title="单元测试报错"></p>
+<p>原因是require()是 Node.js 中才支持的方法，目前浏览器都还没有原生支持。</p>
+<p>因为在electron中，主进程与渲染进程需要通信。</p>
+<p>于是在渲染进程中封装了如下服务：</p>
+        
+          <a class="article-more-a" href="/2020/12/30/Electron+Angular%E4%BE%9D%E8%B5%96%E5%80%92%E7%BD%AE%E6%8A%BD%E8%B1%A1%E7%B1%BB%E8%A7%A3%E5%86%B3%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E6%8A%A5%E9%94%99/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Electron+Anuglar</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-初识Angular的中的依赖倒置、控制反转、依赖注入思想" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -674,6 +750,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Angular</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Electron+Anuglar</a>
               </li>
             
             <div class="clearfix"></div>
