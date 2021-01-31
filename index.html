@@ -380,9 +380,7 @@
       
         <p>场景：在Electron+Angular的项目中，遇到了无法执行单元测试的问题。使用ng test</p>
 <p>​    <img src="/2020/12/30/Electron+Angular%E4%BE%9D%E8%B5%96%E5%80%92%E7%BD%AE%E6%8A%BD%E8%B1%A1%E7%B1%BB%E8%A7%A3%E5%86%B3%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E6%8A%A5%E9%94%99/error.png" class="" title="单元测试报错"></p>
-<p>原因是require()是 Node.js 中才支持的方法，目前浏览器都还没有原生支持。</p>
-<p>因为在electron中，主进程与渲染进程需要通信。</p>
-<p>于是在渲染进程中封装了如下服务：</p>
+<p>require()是 Node.js 的模块加载方法，目前浏览器不支持直接引用，因此报错。</p>
         
           <a class="article-more-a" href="/2020/12/30/Electron+Angular%E4%BE%9D%E8%B5%96%E5%80%92%E7%BD%AE%E6%8A%BD%E8%B1%A1%E7%B1%BB%E8%A7%A3%E5%86%B3%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E6%8A%A5%E9%94%99/#more">more >></a>
         
