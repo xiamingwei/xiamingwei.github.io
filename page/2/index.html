@@ -6,23 +6,15 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Vue中render函数的运用场景 | 夏铭蔚的blog</title>
+  <title>夏铭蔚的blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前言在Vue中，优先推介使用template模板来书写业务组件。（但其实template组件通过parse,optimisize,generate这三步最终也会转化成render函数去渲染）。通常情况下，template模板足够应对大部分场景，但有时候就需要利用render函数的编程能力，我在处理一些需要手动传递配置项的时候会使用render函数，比如树形表中需要自定义渲染的列，封装的搜索框中需要">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Vue中render函数的运用场景">
-<meta property="og:url" content="http://yoursite.com/2020/09/13/Vue%E4%B8%ADrender%E5%87%BD%E6%95%B0%E7%9A%84%E8%BF%90%E7%94%A8%E5%9C%BA%E6%99%AF/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="夏铭蔚的blog">
+<meta property="og:url" content="http://yoursite.com/page/2/index.html">
 <meta property="og:site_name" content="夏铭蔚的blog">
-<meta property="og:description" content="前言在Vue中，优先推介使用template模板来书写业务组件。（但其实template组件通过parse,optimisize,generate这三步最终也会转化成render函数去渲染）。通常情况下，template模板足够应对大部分场景，但有时候就需要利用render函数的编程能力，我在处理一些需要手动传递配置项的时候会使用render函数，比如树形表中需要自定义渲染的列，封装的搜索框中需要">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://yoursite.com/2020/09/13/Vue%E4%B8%ADrender%E5%87%BD%E6%95%B0%E7%9A%84%E8%BF%90%E7%94%A8%E5%9C%BA%E6%99%AF/html.png">
-<meta property="og:image" content="http://yoursite.com/2020/09/13/Vue%E4%B8%ADrender%E5%87%BD%E6%95%B0%E7%9A%84%E8%BF%90%E7%94%A8%E5%9C%BA%E6%99%AF/tree-table.png">
-<meta property="article:published_time" content="2020-09-13T11:15:50.000Z">
-<meta property="article:modified_time" content="2020-09-13T12:06:47.128Z">
 <meta property="article:author" content="夏铭蔚">
-<meta property="article:tag" content="Vue.js">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/2020/09/13/Vue%E4%B8%ADrender%E5%87%BD%E6%95%B0%E7%9A%84%E8%BF%90%E7%94%A8%E5%9C%BA%E6%99%AF/html.png">
   
     <link rel="alternative" href="/atom.xml" title="夏铭蔚的blog" type="application/atom+xml">
   
@@ -140,86 +132,34 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Vue中render函数的运用场景" class="article article-type-post " itemscope itemprop="blogPost">
+            
+  
+    <article id="post-对JS函数概念的一些理解总结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 class="article-title" itemprop="name">
-      Vue中render函数的运用场景
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/07/30/%E5%AF%B9JS%E5%87%BD%E6%95%B0%E6%A6%82%E5%BF%B5%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/">对JS函数概念的一些理解总结</a>
     </h1>
   
 
         
-        <a href="/2020/09/13/Vue%E4%B8%ADrender%E5%87%BD%E6%95%B0%E7%9A%84%E8%BF%90%E7%94%A8%E5%9C%BA%E6%99%AF/" class="archive-article-date">
-  	<time datetime="2020-09-13T11:15:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-13</time>
+        <a href="/2020/07/30/%E5%AF%B9JS%E5%87%BD%E6%95%B0%E6%A6%82%E5%BF%B5%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/" class="archive-article-date">
+  	<time datetime="2020-07-30T06:43:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-30</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>在Vue中，优先推介使用template模板来书写业务组件。（但其实template组件通过parse,optimisize,generate这三步最终也会转化成render函数去渲染）。通常情况下，template模板足够应对大部分场景，但有时候就需要利用render函数的编程能力，我在处理一些需要手动传递配置项的时候会使用render函数，比如树形表中需要自定义渲染的列，封装的搜索框中需要自定义渲染的条件。</p>
-<a id="more"></a>
-
-<h4 id="1-render是什么"><a href="#1-render是什么" class="headerlink" title="1.render是什么"></a>1.render是什么</h4><p><strong>（1）定义</strong></p>
-<p>渲染函数接收一个 <code>createElement</code> 方法作为第一个参数用来创建 <code>VNode</code>。</p>
-<p>如果组件是一个函数组件，渲染函数还会接收一个额外的 <code>context</code> 参数，为没有实例的函数组件提供上下文信息。</p>
-<p>Vue 选项中的 <code>render</code> 函数若存在，则 Vue 构造函数不会从 <code>template</code> 选项或通过 <code>el</code>选项指定的挂载元素中提取出的 HTML 模板编译渲染函数。</p>
-<p><strong>（2）示例</strong></p>
-<p>简单来讲：如果要渲染</p>
-<p>​    <img src="/2020/09/13/Vue%E4%B8%ADrender%E5%87%BD%E6%95%B0%E7%9A%84%E8%BF%90%E7%94%A8%E5%9C%BA%E6%99%AF/html.png" class="" title="DOM结构"></p>
-<p>以上结构通过render的写法为：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">render: <span class="function"><span class="params">h</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> h(<span class="string">&#x27;div&#x27;</span>, &#123;</span><br><span class="line">        </span><br><span class="line">    &#125;, [</span><br><span class="line">        h(<span class="string">&#x27;span&#x27;</span>, &#123;</span><br><span class="line">            style: &#123;</span><br><span class="line">                color: <span class="string">&#x27;blue&#x27;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;, <span class="string">&#x27;xmw&#x27;</span>),</span><br><span class="line">        h(<span class="string">&#x27;span&#x27;</span>, <span class="string">&#x27;web&#x27;</span>)</span><br><span class="line">    ])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>也可以使用react中jsx写法，通过以下引入jsx</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install @vue/babel-preset-jsx @vue/babel-helper-vue-jsx-merge-props --save-dev</span><br></pre></td></tr></table></figure>
-
-<p>jsx的写法是</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">render() &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        &lt;div&gt;</span><br><span class="line">            &lt;span style=<span class="string">&quot;color: blue;&quot;</span>&gt;xmw&lt;/span&gt;</span><br><span class="line">            &lt;span&gt;web&lt;/span&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">    )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>可以看到一个简单的div结构，在render的写法下会变得十分复杂，丧失掉了template模板编译的优势。那么是不是render函数毫无用处呢？我的回答并不是，我在通过配置项封装一些特定组件的时候需要用render的自由能力。</p>
-<h4 id="2-render的应用"><a href="#2-render的应用" class="headerlink" title="2.render的应用"></a>2.render的应用</h4><p><strong>（1）应用场景：</strong></p>
-<p>我在封装树形表的时候，期望传入我的列配置项达到期望渲染的结果。列配置项如下：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">columns: [&#123;</span><br><span class="line">    title: <span class="string">&#x27;姓名&#x27;</span>,</span><br><span class="line">    key: <span class="string">&#x27;name&#x27;</span></span><br><span class="line">&#125;, &#123;</span><br><span class="line">    title: <span class="string">&#x27;年龄&#x27;</span>,</span><br><span class="line">    key: <span class="string">&#x27;age&#x27;</span>,</span><br><span class="line">&#125;, &#123;</span><br><span class="line">    title: <span class="string">&#x27;性别&#x27;</span>,</span><br><span class="line">    key: <span class="string">&#x27;sex&#x27;</span>,</span><br><span class="line">&#125;, &#123;</span><br><span class="line">    title: <span class="string">&#x27;操作&#x27;</span>,</span><br><span class="line">    render: <span class="function">(<span class="params">h, params</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> h(<span class="string">&#x27;div&#x27;</span>, [</span><br><span class="line">            h(<span class="string">&#x27;button&#x27;</span>, &#123;</span><br><span class="line">                style: &#123;</span><br><span class="line">                    marginRight: <span class="string">&#x27;5px&#x27;</span></span><br><span class="line">                &#125;,</span><br><span class="line">                on: &#123;</span><br><span class="line">                    click: <span class="function">() =&gt;</span> &#123;</span><br><span class="line"></span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;, <span class="string">&#x27;新增&#x27;</span>),</span><br><span class="line">            h(<span class="string">&#x27;button&#x27;</span>, &#123;</span><br><span class="line">                on: &#123;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;, <span class="string">&#x27;删除&#x27;</span>)</span><br><span class="line">        ]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;]</span><br></pre></td></tr></table></figure>
-
-<p>期望它的渲染结果如下：</p>
-<p>​    <img src="/2020/09/13/Vue%E4%B8%ADrender%E5%87%BD%E6%95%B0%E7%9A%84%E8%BF%90%E7%94%A8%E5%9C%BA%E6%99%AF/tree-table.png" class="" title="树形表"></p>
-<p>这种通过配置项传入，且每一列都需要根据可能的业务来决定最终的渲染的情况，最好的选择就是render函数。</p>
-<p><strong>（2）render的配置</strong></p>
-<p>首选暴露出render函数，是一个js文件，具体需要的参数根据业务场景选择。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">    name: <span class="string">&#x27;cell&#x27;</span>,</span><br><span class="line">    functional: <span class="literal">true</span>,</span><br><span class="line">    props: &#123;</span><br><span class="line">        row: <span class="built_in">Object</span>,</span><br><span class="line">        parentNode: <span class="built_in">Object</span>,</span><br><span class="line">        render: <span class="built_in">Function</span>,</span><br><span class="line">        index: <span class="built_in">Number</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    render: <span class="function">(<span class="params">h, ctx</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> params = &#123;</span><br><span class="line">            row: ctx.props.row,</span><br><span class="line">            parentNode: ctx.props.parentNode || <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">            index: ctx.props.index</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> ctx.props.render(h, params)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-
-<p>再在使用到render的地方引入该render的组件，可接受的参数通过props传入，再在render的中通过第二个参数context.props去获取，最后组装成需要的参数形式返回即可。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;cell v-<span class="keyword">if</span>=<span class="string">&quot;column.render&quot;</span> :row=<span class="string">&quot;node&quot;</span> :parent-node=<span class="string">&quot;parentNode&quot;</span> :index=<span class="string">&quot;index&quot;</span> :render=<span class="string">&quot;column.render&quot;</span>&gt;&lt;/cell&gt;</span><br><span class="line">&lt;span v-<span class="keyword">else</span>&gt;&#123;&#123;node[column.key]&#125;&#125;&lt;/span&gt;</span><br></pre></td></tr></table></figure>
-
-<p>这样就达到了有render使用render函数，没有则通过默认的渲染，从而达到可配置的项的灵活组装。</p>
-<h4 id="3-总结"><a href="#3-总结" class="headerlink" title="3.总结"></a>3.总结</h4><p>每一项技术，无论是框架还是技术要点，诞生都有它的技术场景。就像大多数只使用template模板的人，未使用到render可能会觉得这是个鸡肋，有template了还要render这么复杂的写法干什么。因此以后遇到不太好用的技术点，不能抱怨，除非真的是大家都觉得难用的东西。更多的想想它用在当前的场景是否符合，是否用对了地方。我相信只要用对了地方，每一项看似难用的技术都会有它发光的地方。</p>
-
+        <h4 id="函数相关概念解析："><a href="#函数相关概念解析：" class="headerlink" title="函数相关概念解析："></a><strong>函数相关概念解析：</strong></h4><p>JS是门函数式语言，函数是第一公民，此文总结涉及到的一些概念，并加入了自己的理解。主要内容为执行上下文、作用域、this、构造函数、new运算符、instanceof、原型链、闭包、柯理化、constructor、内存溢出、闭包、对call/apply/bind进行原生实现等。</p>
+        
+          <a class="article-more-a" href="/2020/07/30/%E5%AF%B9JS%E5%87%BD%E6%95%B0%E6%A6%82%E5%BF%B5%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/#more">more >></a>
+        
       
 
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -230,7 +170,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Vue.js</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JavaScript</a>
         		</li>
       		
 		</ul>
@@ -241,82 +181,10 @@
       
 
       
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
-        </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/09/13/Vue%E4%B8%ADrender%E5%87%BD%E6%95%B0%E7%9A%84%E8%BF%90%E7%94%A8%E5%9C%BA%E6%99%AF/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2020/10/31/Vue%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E8%BF%87%E7%A8%8B%E7%9A%84%E4%B8%80%E4%BA%9B%E8%A6%81%E7%82%B9%E6%80%BB%E7%BB%93/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Vue项目开发过程的一些要点总结
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2020/08/06/Vue%E4%B8%AD%E5%88%A9%E7%94%A8%E9%80%92%E5%BD%92%E7%BB%84%E4%BB%B6%E5%86%99%E5%A4%9A%E7%BA%A7%E5%B1%95%E5%BC%80%E6%A0%91/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Vue中利用递归组件写多级展开树</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -336,14 +204,12 @@
 
 
 
-  
-  
-  
 
   
-
   
-
+    <nav id="page-nav">
+      <a class="extend prev" rel="prev" href="/">&amp;laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    </nav>
   
 
 
@@ -366,8 +232,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: false,
-		isPost: true,
+		isHome: true,
+		isPost: false,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,

@@ -6,23 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Vue中render函数的运用场景 | 夏铭蔚的blog</title>
+  <title>对Angular中单元测试的理解总结 | 夏铭蔚的blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="前言在Vue中，优先推介使用template模板来书写业务组件。（但其实template组件通过parse,optimisize,generate这三步最终也会转化成render函数去渲染）。通常情况下，template模板足够应对大部分场景，但有时候就需要利用render函数的编程能力，我在处理一些需要手动传递配置项的时候会使用render函数，比如树形表中需要自定义渲染的列，封装的搜索框中需要">
+  <meta name="description" content="Angular开箱集成了单元测试工具jasmine，对单元测试的支持比较友好，因此在此总结一下日常开发中写单元测试的心得。 1.单元测试是什么？ 对软件设计的最小单元进行验证和检查。我个人的理解就是，用代码检查代码。在写Angular之前，我本人从未写过单元测试，但是写了一段时间发现单元测试给我的最大好处有以下几点： （1）非侵入性： 我在对一些已有代码进行更改时，运行单元测试若报错，说明入侵修改">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Vue中render函数的运用场景">
-<meta property="og:url" content="http://yoursite.com/2020/09/13/Vue%E4%B8%ADrender%E5%87%BD%E6%95%B0%E7%9A%84%E8%BF%90%E7%94%A8%E5%9C%BA%E6%99%AF/index.html">
+<meta property="og:title" content="对Angular中单元测试的理解总结">
+<meta property="og:url" content="http://yoursite.com/2021/02/24/%E5%AF%B9Angular%E4%B8%AD%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E7%9A%84%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/index.html">
 <meta property="og:site_name" content="夏铭蔚的blog">
-<meta property="og:description" content="前言在Vue中，优先推介使用template模板来书写业务组件。（但其实template组件通过parse,optimisize,generate这三步最终也会转化成render函数去渲染）。通常情况下，template模板足够应对大部分场景，但有时候就需要利用render函数的编程能力，我在处理一些需要手动传递配置项的时候会使用render函数，比如树形表中需要自定义渲染的列，封装的搜索框中需要">
+<meta property="og:description" content="Angular开箱集成了单元测试工具jasmine，对单元测试的支持比较友好，因此在此总结一下日常开发中写单元测试的心得。 1.单元测试是什么？ 对软件设计的最小单元进行验证和检查。我个人的理解就是，用代码检查代码。在写Angular之前，我本人从未写过单元测试，但是写了一段时间发现单元测试给我的最大好处有以下几点： （1）非侵入性： 我在对一些已有代码进行更改时，运行单元测试若报错，说明入侵修改">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://yoursite.com/2020/09/13/Vue%E4%B8%ADrender%E5%87%BD%E6%95%B0%E7%9A%84%E8%BF%90%E7%94%A8%E5%9C%BA%E6%99%AF/html.png">
-<meta property="og:image" content="http://yoursite.com/2020/09/13/Vue%E4%B8%ADrender%E5%87%BD%E6%95%B0%E7%9A%84%E8%BF%90%E7%94%A8%E5%9C%BA%E6%99%AF/tree-table.png">
-<meta property="article:published_time" content="2020-09-13T11:15:50.000Z">
-<meta property="article:modified_time" content="2020-09-13T12:06:47.128Z">
+<meta property="article:published_time" content="2021-02-24T11:30:00.000Z">
+<meta property="article:modified_time" content="2021-02-24T11:48:24.043Z">
 <meta property="article:author" content="夏铭蔚">
-<meta property="article:tag" content="Vue.js">
+<meta property="article:tag" content="Angular单元测试">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/2020/09/13/Vue%E4%B8%ADrender%E5%87%BD%E6%95%B0%E7%9A%84%E8%BF%90%E7%94%A8%E5%9C%BA%E6%99%AF/html.png">
   
     <link rel="alternative" href="/atom.xml" title="夏铭蔚的blog" type="application/atom+xml">
   
@@ -140,62 +137,93 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Vue中render函数的运用场景" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-对Angular中单元测试的理解总结" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Vue中render函数的运用场景
+      对Angular中单元测试的理解总结
     </h1>
   
 
         
-        <a href="/2020/09/13/Vue%E4%B8%ADrender%E5%87%BD%E6%95%B0%E7%9A%84%E8%BF%90%E7%94%A8%E5%9C%BA%E6%99%AF/" class="archive-article-date">
-  	<time datetime="2020-09-13T11:15:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-13</time>
+        <a href="/2021/02/24/%E5%AF%B9Angular%E4%B8%AD%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E7%9A%84%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/" class="archive-article-date">
+  	<time datetime="2021-02-24T11:30:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-24</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h4 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h4><p>在Vue中，优先推介使用template模板来书写业务组件。（但其实template组件通过parse,optimisize,generate这三步最终也会转化成render函数去渲染）。通常情况下，template模板足够应对大部分场景，但有时候就需要利用render函数的编程能力，我在处理一些需要手动传递配置项的时候会使用render函数，比如树形表中需要自定义渲染的列，封装的搜索框中需要自定义渲染的条件。</p>
+        <p>Angular开箱集成了单元测试工具jasmine，对单元测试的支持比较友好，因此在此总结一下日常开发中写单元测试的心得。</p>
+<p><strong>1.单元测试是什么？</strong></p>
+<p>对软件设计的最小单元进行验证和检查。我个人的理解就是，用代码检查代码。在写Angular之前，我本人从未写过单元测试，但是写了一段时间发现单元测试给我的最大好处有以下几点：</p>
+<p><strong>（1）非侵入性：</strong></p>
+<p>我在对一些已有代码进行更改时，运行单元测试若报错，说明入侵修改了之前的逻辑，需要慎重处理。</p>
 <a id="more"></a>
 
-<h4 id="1-render是什么"><a href="#1-render是什么" class="headerlink" title="1.render是什么"></a>1.render是什么</h4><p><strong>（1）定义</strong></p>
-<p>渲染函数接收一个 <code>createElement</code> 方法作为第一个参数用来创建 <code>VNode</code>。</p>
-<p>如果组件是一个函数组件，渲染函数还会接收一个额外的 <code>context</code> 参数，为没有实例的函数组件提供上下文信息。</p>
-<p>Vue 选项中的 <code>render</code> 函数若存在，则 Vue 构造函数不会从 <code>template</code> 选项或通过 <code>el</code>选项指定的挂载元素中提取出的 HTML 模板编译渲染函数。</p>
-<p><strong>（2）示例</strong></p>
-<p>简单来讲：如果要渲染</p>
-<p>​    <img src="/2020/09/13/Vue%E4%B8%ADrender%E5%87%BD%E6%95%B0%E7%9A%84%E8%BF%90%E7%94%A8%E5%9C%BA%E6%99%AF/html.png" class="" title="DOM结构"></p>
-<p>以上结构通过render的写法为：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">render: <span class="function"><span class="params">h</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> h(<span class="string">&#x27;div&#x27;</span>, &#123;</span><br><span class="line">        </span><br><span class="line">    &#125;, [</span><br><span class="line">        h(<span class="string">&#x27;span&#x27;</span>, &#123;</span><br><span class="line">            style: &#123;</span><br><span class="line">                color: <span class="string">&#x27;blue&#x27;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;, <span class="string">&#x27;xmw&#x27;</span>),</span><br><span class="line">        h(<span class="string">&#x27;span&#x27;</span>, <span class="string">&#x27;web&#x27;</span>)</span><br><span class="line">    ])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>（2）便捷性：</strong></p>
+<p>有一些操作，比如异步需要等待10秒才执行，或者点击一个东西多次，靠人工的话会很麻烦，而用单测模拟就会很方便。</p>
+<p><strong>（3）健壮性：</strong></p>
+<p>单元测试有覆盖率，覆盖率越高，说明项目越健壮，代码的质量越高。试想若一个项目没写单元测试，怎么敢说自己的项目是一个高质量的项目呢？</p>
+<p><strong>2.特性</strong></p>
+<p>（1）代码测试代码，可重复运行。</p>
+<p>（2）单元测试的时间应该非常短。</p>
+<p>（3）单元测试一般粒度较小，发现问题可以快速定位并修复错误。</p>
+<p>（4）良好设计的单元测试会覆盖程序单元分支和循环条件的所有路径。</p>
+<p><strong>3.编写步骤</strong></p>
+<p>（1）Setup（准备）：配置测试预制条件</p>
+<p>（2）Exercise（执行）：测试调用代码</p>
+<p>（3）Verify（验证）：断言/验证期望输出</p>
+<p>（4）Cleanup（清空）：重置至测试前的初始状态</p>
+<p><strong>4.Angular中的单元测试：</strong></p>
+<p><strong>（1）重要概念-间谍：</strong></p>
+<p>在准备测试执行环境的时候，需要注入相应的依赖项，比如服务。而如果该服务里面有许多真实的请求，那么显然是不能直接测试的，因为每一次执行便会去调用一次真实请求，非常麻烦。实际上，被测试的组件不一定要注入真正的服务，服务的替身（Stub - 桩, Fake - 假冒品, Spy - 间谍或者 Mock - 模拟对象）通常会更加合适。单元测试的主要目的是测试组件，而不是服务本身，不应该让它干扰对组件的测试。所以对真实的 SomeService 的位置创建和注册 SomeService 替身，会让测试更加容易和安全。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// mock了SomeService的a方法</span></span><br><span class="line"><span class="keyword">const</span> someServiceSpy  = jasmine.createSpyObj(<span class="string">&#x27;SomeService&#x27;</span>, [<span class="string">&#x27;a&#x27;</span>]);</span><br><span class="line"><span class="comment">// 调用someServiceSpy 的a方法会返回xmw</span></span><br><span class="line">someServiceSpy.a.and.returnValue(<span class="string">&#x27;xmw&#x27;</span>);</span><br><span class="line"></span><br><span class="line">TestBed.configureTestingModule(&#123;</span><br><span class="line">   declarations: [ SomeComponent ],</span><br><span class="line"><span class="comment">// providers: [ SomeService ],  //  不要提供真实的服务，提供一个假的</span></span><br><span class="line">   providers: [ &#123; <span class="attr">provide</span>: SomeService, <span class="attr">useValue</span>: someServiceSpy &#125; ],</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 
-<p>也可以使用react中jsx写法，通过以下引入jsx</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install @vue/babel-preset-jsx @vue/babel-helper-vue-jsx-merge-props --save-dev</span><br></pre></td></tr></table></figure>
+<p><strong>应用场景：</strong></p>
+<p>有一个实际请求，需要请求书籍数据，我们测试这个组件只需要关心，通过该方法返回了相应的数据即可，而不是要它真正的向服务器发送请求。所以可以通过间谍mock该服务方法的返回数据。</p>
+<p>book.components.ts</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">getBooks(): <span class="keyword">void</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.configService.getBooks().subscribe(<span class="function">(<span class="params">result: any</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="comment">// do sth...</span></span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>jsx的写法是</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">render() &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        &lt;div&gt;</span><br><span class="line">            &lt;span style=<span class="string">&quot;color: blue;&quot;</span>&gt;xmw&lt;/span&gt;</span><br><span class="line">            &lt;span&gt;web&lt;/span&gt;</span><br><span class="line">        &lt;/div&gt;</span><br><span class="line">    )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>book.components.spec.ts</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">beforeEach(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">//被测试组件实例化</span></span><br><span class="line">    fixture = TestBed.createComponent(BookComponent);</span><br><span class="line">    componet = fixture.componentInstance;</span><br><span class="line">    fixture.detectChanges();</span><br><span class="line">    configService = TestBed.inject(ConfigService);</span><br><span class="line"> &#125;);</span><br><span class="line"></span><br><span class="line">it(<span class="string">&#x27;调用getBooks方法能返回书籍数据&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> expectedBooks: Book[] = [&#123;</span><br><span class="line">        id: <span class="number">1</span>,</span><br><span class="line">        name: <span class="string">&#x27;书名1&#x27;</span></span><br><span class="line">      &#125;, &#123;</span><br><span class="line">        id: <span class="number">2</span>,</span><br><span class="line">        name: <span class="string">&#x27;书名2&#x27;</span></span><br><span class="line">      &#125;];</span><br><span class="line">    <span class="comment">//此间谍代替真实服务已经被执行，且已经返回了挡板数据。</span></span><br><span class="line">      <span class="keyword">const</span> configServiceSpy = spyOn(configService,                 <span class="string">&#x27;getBooks&#x27;</span>).and.returnValue(<span class="keyword">of</span>(expectedBooks));</span><br><span class="line">    <span class="comment">//直接通过组加调用其方法</span></span><br><span class="line">      componet.getBooks();</span><br><span class="line">    <span class="comment">//再看看替身是否被执行</span></span><br><span class="line">      expect(configServiceSpy).toHaveBeenCalledWith();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 
-<p>可以看到一个简单的div结构，在render的写法下会变得十分复杂，丧失掉了template模板编译的优势。那么是不是render函数毫无用处呢？我的回答并不是，我在通过配置项封装一些特定组件的时候需要用render的自由能力。</p>
-<h4 id="2-render的应用"><a href="#2-render的应用" class="headerlink" title="2.render的应用"></a>2.render的应用</h4><p><strong>（1）应用场景：</strong></p>
-<p>我在封装树形表的时候，期望传入我的列配置项达到期望渲染的结果。列配置项如下：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">columns: [&#123;</span><br><span class="line">    title: <span class="string">&#x27;姓名&#x27;</span>,</span><br><span class="line">    key: <span class="string">&#x27;name&#x27;</span></span><br><span class="line">&#125;, &#123;</span><br><span class="line">    title: <span class="string">&#x27;年龄&#x27;</span>,</span><br><span class="line">    key: <span class="string">&#x27;age&#x27;</span>,</span><br><span class="line">&#125;, &#123;</span><br><span class="line">    title: <span class="string">&#x27;性别&#x27;</span>,</span><br><span class="line">    key: <span class="string">&#x27;sex&#x27;</span>,</span><br><span class="line">&#125;, &#123;</span><br><span class="line">    title: <span class="string">&#x27;操作&#x27;</span>,</span><br><span class="line">    render: <span class="function">(<span class="params">h, params</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> h(<span class="string">&#x27;div&#x27;</span>, [</span><br><span class="line">            h(<span class="string">&#x27;button&#x27;</span>, &#123;</span><br><span class="line">                style: &#123;</span><br><span class="line">                    marginRight: <span class="string">&#x27;5px&#x27;</span></span><br><span class="line">                &#125;,</span><br><span class="line">                on: &#123;</span><br><span class="line">                    click: <span class="function">() =&gt;</span> &#123;</span><br><span class="line"></span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;, <span class="string">&#x27;新增&#x27;</span>),</span><br><span class="line">            h(<span class="string">&#x27;button&#x27;</span>, &#123;</span><br><span class="line">                on: &#123;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;, <span class="string">&#x27;删除&#x27;</span>)</span><br><span class="line">        ]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;]</span><br></pre></td></tr></table></figure>
+<p>（2）常规单元测试测试点：</p>
+<ul>
+<li><p>测试方法是否正确返回：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 方法</span></span><br><span class="line">add(a, b): number &#123;</span><br><span class="line">    <span class="keyword">return</span> a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 对应单测</span></span><br><span class="line">it(<span class="string">&#x27;add&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> a = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">const</span> b = <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> result = a + b;</span><br><span class="line">    <span class="keyword">const</span> expected = <span class="number">3</span>;</span><br><span class="line"></span><br><span class="line">    expect(expected).toBe(result);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 
-<p>期望它的渲染结果如下：</p>
-<p>​    <img src="/2020/09/13/Vue%E4%B8%ADrender%E5%87%BD%E6%95%B0%E7%9A%84%E8%BF%90%E7%94%A8%E5%9C%BA%E6%99%AF/tree-table.png" class="" title="树形表"></p>
-<p>这种通过配置项传入，且每一列都需要根据可能的业务来决定最终的渲染的情况，最好的选择就是render函数。</p>
-<p><strong>（2）render的配置</strong></p>
-<p>首选暴露出render函数，是一个js文件，具体需要的参数根据业务场景选择。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">    name: <span class="string">&#x27;cell&#x27;</span>,</span><br><span class="line">    functional: <span class="literal">true</span>,</span><br><span class="line">    props: &#123;</span><br><span class="line">        row: <span class="built_in">Object</span>,</span><br><span class="line">        parentNode: <span class="built_in">Object</span>,</span><br><span class="line">        render: <span class="built_in">Function</span>,</span><br><span class="line">        index: <span class="built_in">Number</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    render: <span class="function">(<span class="params">h, ctx</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> params = &#123;</span><br><span class="line">            row: ctx.props.row,</span><br><span class="line">            parentNode: ctx.props.parentNode || <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">            index: ctx.props.index</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> ctx.props.render(h, params)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
-<p>再在使用到render的地方引入该render的组件，可接受的参数通过props传入，再在render的中通过第二个参数context.props去获取，最后组装成需要的参数形式返回即可。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;cell v-<span class="keyword">if</span>=<span class="string">&quot;column.render&quot;</span> :row=<span class="string">&quot;node&quot;</span> :parent-node=<span class="string">&quot;parentNode&quot;</span> :index=<span class="string">&quot;index&quot;</span> :render=<span class="string">&quot;column.render&quot;</span>&gt;&lt;/cell&gt;</span><br><span class="line">&lt;span v-<span class="keyword">else</span>&gt;&#123;&#123;node[column.key]&#125;&#125;&lt;/span&gt;</span><br></pre></td></tr></table></figure>
 
-<p>这样就达到了有render使用render函数，没有则通过默认的渲染，从而达到可配置的项的灵活组装。</p>
-<h4 id="3-总结"><a href="#3-总结" class="headerlink" title="3.总结"></a>3.总结</h4><p>每一项技术，无论是框架还是技术要点，诞生都有它的技术场景。就像大多数只使用template模板的人，未使用到render可能会觉得这是个鸡肋，有template了还要render这么复杂的写法干什么。因此以后遇到不太好用的技术点，不能抱怨，除非真的是大家都觉得难用的东西。更多的想想它用在当前的场景是否符合，是否用对了地方。我相信只要用对了地方，每一项看似难用的技术都会有它发光的地方。</p>
+</li>
+</ul>
+<ul>
+<li><p>测试方法是否被正确调用：</p>
+<p>a方法中调用了b方法，测试调用a方法时，是否正确调用了b方法。此时需要mock b方法，因为不知道b方法到底执行了什么。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 方法</span></span><br><span class="line">a(): <span class="keyword">void</span> &#123;</span><br><span class="line">      b();</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 对应单测</span></span><br><span class="line">it(<span class="string">&#x27;a方法调用，b方法也调用&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> bSpy = spyOn(component, <span class="string">&#x27;b&#x27;</span>);</span><br><span class="line"></span><br><span class="line">     a();</span><br><span class="line"></span><br><span class="line">    expect(bSpy).toHaveBeenCalled();</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<ul>
+<li><p>异步代码测试：</p>
+<p>运用fakeAysnc+tick。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 方法</span></span><br><span class="line"><span class="keyword">async</span> getData(): <span class="built_in">Promise</span>&lt;any&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> datas = <span class="keyword">await</span> <span class="built_in">this</span>.getSomeDatas();</span><br><span class="line">    <span class="keyword">return</span> datas;</span><br><span class="line">&#125;    </span><br><span class="line">  </span><br><span class="line"><span class="comment">// 对应单测</span></span><br><span class="line">it(<span class="string">&#x27;getData&#x27;</span>, fakeAsync(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> getSomeDatasSpy = spyOn(component, <span class="string">&#x27;getSomeDatas&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    service.getData();</span><br><span class="line">    <span class="comment">// tick之后，直接进入异步后的结果，否则，下面方法被调用的单测不会通过。</span></span><br><span class="line">    tick();</span><br><span class="line"></span><br><span class="line">    expect(getSomeDatasSpy).toHaveBeenCalled();</span><br><span class="line">&#125;));</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<ul>
+<li><p>http请求测试：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 方法</span></span><br><span class="line">addData(params: any) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>.http.post(<span class="string">&#x27;apiUrl&#x27;</span>, params);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 对应单测</span></span><br><span class="line">it(<span class="string">&#x27;addData&#x27;</span>, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> postSpy = spyOn(http, <span class="string">&#x27;post&#x27;</span>);</span><br><span class="line">    <span class="keyword">const</span> apiUrl = <span class="string">&#x27;apiUrl&#x27;</span>;</span><br><span class="line">    <span class="keyword">const</span> params = &#123;</span><br><span class="line">      name: <span class="string">&#x27;test&#x27;</span></span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    service.addData(params);</span><br><span class="line"></span><br><span class="line">    expect(postSpy).toHaveBeenCalledWith(apiUrl, &#123;</span><br><span class="line">      ...params</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
 
       
 
@@ -230,7 +258,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Vue.js</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Angular单元测试</a>
         		</li>
       		
 		</ul>
@@ -286,7 +314,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/09/13/Vue%E4%B8%ADrender%E5%87%BD%E6%95%B0%E7%9A%84%E8%BF%90%E7%94%A8%E5%9C%BA%E6%99%AF/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2021/02/24/%E5%AF%B9Angular%E4%B8%AD%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E7%9A%84%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -300,18 +328,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2020/10/31/Vue%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E8%BF%87%E7%A8%8B%E7%9A%84%E4%B8%80%E4%BA%9B%E8%A6%81%E7%82%B9%E6%80%BB%E7%BB%93/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Vue项目开发过程的一些要点总结
-        
-      </div>
-    </a>
   
-  
-    <a href="/2020/08/06/Vue%E4%B8%AD%E5%88%A9%E7%94%A8%E9%80%92%E5%BD%92%E7%BB%84%E4%BB%B6%E5%86%99%E5%A4%9A%E7%BA%A7%E5%B1%95%E5%BC%80%E6%A0%91/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Vue中利用递归组件写多级展开树</div>
+    <a href="/2021/01/28/Electron%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E5%8C%96%E6%89%93%E5%8C%85%E8%84%9A%E6%9C%AC/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Electron实现自动化打包脚本</div>
       <i class="icon-circle-right"></i>
     </a>
   

@@ -134,6 +134,82 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-对Angular中单元测试的理解总结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/02/24/%E5%AF%B9Angular%E4%B8%AD%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E7%9A%84%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/">对Angular中单元测试的理解总结</a>
+    </h1>
+  
+
+        
+        <a href="/2021/02/24/%E5%AF%B9Angular%E4%B8%AD%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E7%9A%84%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/" class="archive-article-date">
+  	<time datetime="2021-02-24T11:30:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-24</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Angular开箱集成了单元测试工具jasmine，对单元测试的支持比较友好，因此在此总结一下日常开发中写单元测试的心得。</p>
+<p><strong>1.单元测试是什么？</strong></p>
+<p>对软件设计的最小单元进行验证和检查。我个人的理解就是，用代码检查代码。在写Angular之前，我本人从未写过单元测试，但是写了一段时间发现单元测试给我的最大好处有以下几点：</p>
+<p><strong>（1）非侵入性：</strong></p>
+<p>我在对一些已有代码进行更改时，运行单元测试若报错，说明入侵修改了之前的逻辑，需要慎重处理。</p>
+        
+          <a class="article-more-a" href="/2021/02/24/%E5%AF%B9Angular%E4%B8%AD%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E7%9A%84%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Angular单元测试</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Electron实现自动化打包脚本" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -802,78 +878,10 @@
 
 
   
-    <article id="post-对JS函数概念的一些理解总结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/07/30/%E5%AF%B9JS%E5%87%BD%E6%95%B0%E6%A6%82%E5%BF%B5%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/">对JS函数概念的一些理解总结</a>
-    </h1>
-  
-
-        
-        <a href="/2020/07/30/%E5%AF%B9JS%E5%87%BD%E6%95%B0%E6%A6%82%E5%BF%B5%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/" class="archive-article-date">
-  	<time datetime="2020-07-30T06:43:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-30</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="函数相关概念解析："><a href="#函数相关概念解析：" class="headerlink" title="函数相关概念解析："></a><strong>函数相关概念解析：</strong></h4><p>JS是门函数式语言，函数是第一公民，此文总结涉及到的一些概念，并加入了自己的理解。主要内容为执行上下文、作用域、this、构造函数、new运算符、instanceof、原型链、闭包、柯理化、constructor、内存溢出、闭包、对call/apply/bind进行原生实现等。</p>
-        
-          <a class="article-more-a" href="/2020/07/30/%E5%AF%B9JS%E5%87%BD%E6%95%B0%E6%A6%82%E5%BF%B5%E7%9A%84%E4%B8%80%E4%BA%9B%E7%90%86%E8%A7%A3%E6%80%BB%E7%BB%93/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JavaScript</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
+    <nav id="page-nav">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
+    </nav>
   
 
 
@@ -980,6 +988,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Electron</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Angular单元测试</a>
               </li>
             
             <div class="clearfix"></div>
